@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satir・PAIRS 逐字稿研習</title>
+<style>
+:root{
+  --bg:#faf7f2; --card:#ffffff; --ink:#3d3630; --soft:#8a7f72; --line:#d8cfc2;
+  --teal:#2f6f62; --teal-soft:#e3efec; --slate:#46586b; --slate-soft:#e8edf2;
+  --amber:#c97b4a; --amber-soft:#f8e9de; --ok:#4a7c59; --ok-soft:#e6f0e5;
+  --seg1:#5c7a52; --seg1-soft:#e6ede2; --seg2:#8a5f80; --seg2-soft:#f0e5ee;
+  --seg3:#b8863f; --seg3-soft:#f6ecd9;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;padding-bottom:70px;}
+header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.head-inner{max-width:1040px;margin:0 auto;padding:16px 20px 0;}
+h1{font-size:1.25rem;letter-spacing:.1em;color:var(--teal);}
+.sub{font-size:.8rem;color:var(--soft);margin-top:3px;line-height:1.6;}
+.sub a{color:var(--slate);}
+.headtools{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+.lg{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;font-size:.76rem;}
+.lg button{border:none;background:#fff;color:var(--soft);padding:6px 12px;cursor:pointer;font-family:inherit;}
+.lg button.on{background:var(--teal);color:#fff;font-weight:700;}
+.progress-mini{font-size:.76rem;color:var(--soft);margin-left:auto;}
+nav{display:flex;gap:2px;margin-top:12px;overflow-x:auto;padding-bottom:2px;}
+nav button{border:none;background:none;padding:9px 13px;font-size:.85rem;color:var(--soft);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;font-family:inherit;}
+nav button .tm{display:block;font-size:.66rem;color:var(--soft);opacity:.75;}
+nav button.on{color:var(--teal);font-weight:700;border-bottom-color:var(--teal);}
+main{max-width:1040px;margin:0 auto;padding:26px 20px;}
+section{display:none;}
+section.show{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 4px rgba(61,54,48,.06);margin-bottom:16px;}
+.card h3{font-size:1rem;letter-spacing:.05em;margin-bottom:8px;color:var(--teal);}
+.muted{color:var(--soft);font-size:.85rem;line-height:1.75;}
+
+/* 總覽 */
+.ov-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.chip{font-size:.72rem;padding:3px 10px;border-radius:99px;background:var(--teal-soft);color:var(--teal);cursor:pointer;border:none;font-family:inherit;}
+.chip:hover{filter:brightness(0.93);}
+.chip-count{font-size:.66rem;font-weight:700;opacity:.65;}
+
+/* 章節內容 */
+.ctx{font-size:.92rem;line-height:1.9;margin-bottom:16px;padding:14px 16px;background:var(--amber-soft);border-radius:12px;color:#6b4a30;}
+.time-badge{display:inline-block;font-size:.7rem;padding:2px 10px;border-radius:99px;background:var(--slate-soft);color:var(--slate);margin-bottom:10px;font-family:ui-monospace,Menlo,monospace;}
+.seg-badge{display:inline-block;font-size:.7rem;padding:2px 10px;border-radius:99px;margin-bottom:10px;margin-right:6px;font-weight:700;letter-spacing:.03em;}
+.seg-badge.seg-1{background:var(--seg1-soft);color:var(--seg1);}
+.seg-badge.seg-2{background:var(--seg2-soft);color:var(--seg2);}
+.seg-badge.seg-3{background:var(--seg3-soft);color:var(--seg3);}
+nav button.seg-1{background:var(--seg1-soft);}
+nav button.seg-2{background:var(--seg2-soft);}
+nav button.seg-3{background:var(--seg3-soft);}
+nav button.seg-1.on,nav button.seg-2.on,nav button.seg-3.on{background:transparent;}
+.legend-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+.legend-row a{text-decoration:none;}
+
+.qcase{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px;background:var(--card);}
+.qcase .case-name{font-size:.9rem;font-weight:700;color:var(--amber);margin-bottom:10px;letter-spacing:.03em;}
+.qpair{margin-bottom:10px;}
+.qpair:last-child{margin-bottom:0;}
+.qblock{border-radius:10px;padding:10px 14px;margin-bottom:6px;font-size:.9rem;line-height:1.75;}
+.qblock.en{background:var(--slate-soft);color:#2c3a48;font-style:italic;border-left:3px solid var(--slate);}
+.qblock.zh{background:var(--teal-soft);color:#1f4a40;border-left:3px solid var(--teal);}
+.qblock .lbl{display:block;font-size:.66rem;font-weight:700;letter-spacing:.08em;margin-bottom:4px;opacity:.7;}
+body.mode-zh .qblock.en{display:none;}
+body.mode-en .qblock.zh{display:none;}
+
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.tag{font-size:.72rem;padding:3px 10px;border-radius:99px;background:var(--amber-soft);color:var(--amber);cursor:pointer;border:1px solid transparent;font-family:inherit;}
+.tag:hover{border-color:var(--amber);}
+.tag.active{background:var(--amber);color:#fff;}
+
+.reflect{margin-top:18px;background:#fbf6ee;border:1px dashed #e0d4bd;border-radius:12px;padding:14px 16px;}
+.reflect label{font-size:.78rem;color:var(--amber);font-weight:700;display:block;margin-bottom:6px;}
+.reflect textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.88rem;font-family:inherit;background:#fff;resize:vertical;min-height:64px;color:var(--ink);}
+.reflect textarea:focus{outline:2px solid var(--teal-soft);border-color:var(--teal);}
+.save-hint{font-size:.7rem;color:var(--soft);margin-top:4px;}
+
+/* 技巧地圖 */
+.tagmap-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.tagmap-cloud .tag{font-size:.82rem;padding:6px 14px;}
+.hit{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:12px;background:var(--card);}
+.hit .hit-chap{font-size:.72rem;color:var(--soft);margin-bottom:6px;}
+.hit .hit-chap b{color:var(--teal);}
+
+.progress-bar{height:8px;background:#efeae2;border-radius:99px;overflow:hidden;margin:8px 0;}
+.progress-bar i{display:block;height:100%;background:var(--teal);border-radius:99px;transition:width .3s;}
+
+footer{text-align:center;color:#b3a897;font-size:.75rem;margin-top:50px;letter-spacing:.08em;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <h1>SATIR × PAIRS Workshop研習</h1>
+    <div class="sub">Virginia Satir PAIRS Training — Segment I＋II＋III ・ Lori Gordon 引言 ＋ Satir 現場示範與理論講解<br>
+      來源影片：<a href="https://www.youtube.com/watch?v=BGDYlDPOBHY" target="_blank">Segment I</a>　<a href="https://www.youtube.com/watch?v=1MEF2G1Kedg" target="_blank">Segment II</a>　<a href="https://www.youtube.com/watch?v=ezSriTVG5E8" target="_blank">Segment III</a>　筆記：satir/PAIRS Training-1.md ・ -2.md ・ -3.md</div>
+    <div class="headtools">
+      <div class="lg" id="langtoggle">
+        <button data-m="both" class="on">中英對照</button>
+        <button data-m="zh">只看中文</button>
+        <button data-m="en">only EN</button>
+      </div>
+      <div class="progress-mini" id="progress-mini"></div>
+    </div>
+    <nav id="nav"></nav>
+  </div>
+</header>
+
+<main>
+<section id="sec-ov"></section>
+<section id="sec-chapters"></section>
+<section id="sec-tagmap"></section>
+</main>
+
+<footer>Ting ・ 家族治療研習筆記 ・ Satir Segment I</footer>
+
+<script>
+/* ───────── 資料 ───────── */
+const CHAPTERS=[
+ {id:"c1",time:"00:00–05:00",title:"開場：PAIRS 的起點",en_title:"Opening by Lori Gordon",
+  context:"這場工作坊由 PAIRS 課程創辦人 Lori Gordon 開場。她說明自己在 1964 年讀到 Virginia Satir 的《Conjoint Family Therapy》後深受啟發，進而在 1978 年發展出 PAIRS（伴侶關係促進課程），並邀請 Satir 本人親自帶領這場為期四天的工作坊。",
+  quotes:[
+   {en:"I first came across Virginia Satir's work right after Conjoint Family Therapy was published in 1964. So, that's just about 20 years ago and it lit up the sky for me. It was the first book I read that made sense in terms of understanding people and what went wrong in relationships and what I could do to help.",
+    zh:"我第一次接觸到 Virginia Satir 的作品，是在《聯合家族治療》於 1964 年出版之後，差不多是二十年前的事了，那本書為我照亮了整片天空。那是我讀過的第一本，讓我真正理解人、理解關係哪裡出了問題、以及我可以做些什麼來幫助他們的書。"},
+   {en:"If we can teach this to graduate students, why can't we teach it on a preventive maintenance basis?",
+    zh:"如果我們能把這些教給研究生，為什麼不能用『預防保養』的方式教給一般伴侶呢？"}
+  ],
+  techniques:["訓練脈絡","理論傳承"],
+  reflect:"若要用一句話介紹「啟發你走上助人這條路的一本書或一堂課」，你會怎麼說？試著寫下它如何「照亮你的天空」。"},
+
+ {id:"c2",time:"05:00–15:00",title:"拋棄診斷標籤的代價",en_title:"The Cost of Diagnostic Labels",
+  context:"Satir 一開場就用一則沉痛的個人故事，質疑「診斷分類」作為專業能力象徵的傳統，她提到自己早年因為忠實執行「觀察→歸類→治療」的專業訓練，把一位個案診斷為「躁鬱症」並依此治療，卻從未真正「找到」這個人，個案最終在精神病院度過十一年並在那裡過世。",
+  quotes:[
+   {en:"when I met people for therapeutic reasons I needed to observe certain things. And all these things that I was supposed to observe then got translated into a category... I went to a book and I took all of these observations and I said, 'What does that mean?' And that meant manic depression... I loved her and... there was lots of love going on and all that stuff — I never really found her. And she ended up with 11 years in a mental hospital and died there.",
+    zh:"當我因為治療目的與人會談時，我被教導要觀察某些特定事項。而這些我『應該觀察』的項目，最後都被翻譯成一個分類……我翻開一本書，把所有觀察到的東西拿去對照，問自己：『這代表什麼？』結果答案是，躁鬱症……我愛她，也確實付出了很多的愛，但我從來沒有真正『找到』過她這個人。她最後在精神病院裡待了十一年，並在那裡過世。"},
+   {en:"the minute we start to categorize people, we've lost them.",
+    zh:"我們一開始把人分類，那一刻，我們就已經失去他們了。"}
+  ],
+  techniques:["去病理化","個別化理解","專業反思"],
+  reflect:"回想你目前的工作或實習經驗中，有沒有哪一次你不自覺地「先看到診斷／問題標籤，才看到人」？如果重來一次，你會怎麼做不一樣的觀察？"},
+
+ {id:"c3",time:"（延續前段）",title:"Jane Addams 的啟示：建立自我價值",en_title:"Jane Addams — Building Self-Worth",
+  context:"Satir 引用社會工作先驅 Jane Addams 為例，Addams 走進貧民社區與家庭，做的事其實只有一件：幫助人們找到自己的自我價值（self-worth），而非分類、診斷他們的問題。許多後來成名的建築師、藝術家、律師，都出身自她所服務過的社區。",
+  quotes:[
+   {en:"Jane Addams would go in and... which is all totally one and the same, was building their self-esteem... that's what she did was to bring out their self-worth and become famous in relation to the finding of the self-worth instead of the categorizing.",
+    zh:"Jane Addams 走進去做的事，說穿了其實都是同一件事，就是幫助人們建立自我價值感……她所做的，是把人們內在的自我價值『引出來』，而她之所以成名，正是因為『找到自我價值』這件事，而不是『分類診斷』。"},
+   {en:"I think that people are not as hard to work with as we used to think. They're only hard to work with when we decide how they should be and then try to make them that way.",
+    zh:"我認為人其實沒有我們過去以為的那麼難『工作』。他們會變得難搞，只發生在我們決定了他們『應該』是什麼樣子，然後試圖把他們塑造成那樣的時候。"}
+  ],
+  techniques:["自我價值取向","優勢觀點","去權威化"],
+  reflect:"「決定個案應該是什麼樣子、再試圖把他們塑造成那樣」，這句話對你來說，最容易在什麼情境下發生？（例如：對某個特定議題有既定的治療腳本）"},
+
+ {id:"c4",time:"10:00–15:00",title:"羅生門隱喻：每個人的真實都獨特",en_title:"The Rashomon Metaphor",
+  context:"Satir 以電影《羅生門》為例，同一事件，六個人各自經歷，呈現出六種截然不同的版本。她強調治療的態度不是去判斷「誰的版本才是對的」，而是尊重每個人獨特的知覺與經驗，即使是同一家庭中長大的三個孩子，也可能各自報告出「完全不同的父母」。",
+  quotes:[
+   {en:"everybody's picture, but let us never get into the position of saying whose picture is right... Take three children grown up in the same family and they can report different kinds of parents even though they were the same ones.",
+    zh:"每個人都有自己的畫面，但我們永遠不要陷入去評斷『誰的畫面才是對的』這種立場……即便是在同一個家庭長大的三個孩子，他們也可能會描述出截然不同的父母，即使那其實是同一對父母。"},
+   {en:"for me to work with somebody, for those people to allow me to become intimate in their lives... is a sacred trust. So therefore, I cannot abuse it. I cannot reject it.",
+    zh:"對我來說，能與一個人工作、被允許進入他們生命中最私密的細節，是一份神聖的信任。因此，我不能濫用它，也不能拒絕它。"}
+  ],
+  techniques:["多元真實觀","家庭系統知覺差異","治療關係的神聖性"],
+  reflect:"在同一個家庭的會談中，你曾遇過家庭成員對「同一件事」有截然不同的敘述嗎？當下你如何回應，事後回想，你會想調整什麼？"},
+
+ {id:"c5",time:"15:00–20:00",title:"「你是珍寶」練習",en_title:"The Treasure Exercise",
+  context:"Satir 邀請一位學員 Jesse 站到台前，示範她的核心信念：每個人在展現任何行為之前，首先是一個獨特、珍貴的存在（treasure）。她刻意把「基本的珍貴感（basic worth）」與「行為表現（behavior）」分開，強調前者不因後者的好壞而改變。",
+  quotes:[
+   {en:"there are a lot of people who start shrinking inside because they've been told all their lives that they shouldn't be out front... today that which would have been negative before now is an essential to your being.",
+    zh:"很多人一站出來，內在就開始畏縮，因為他們一輩子都被教導『不應該站到台前』……但今天，過去被認為是負面的（站出來、被看見），現在卻是你存在的必要部分。"},
+   {en:"she is an important beautiful being unique... Doesn't mean she does everything right. That's another thing. Let's not get mixed up our basic beauty with our behavior.",
+    zh:"她是一個重要、美好、獨一無二的存在……這不代表她做的每件事都是對的，那是另外一回事。我們不要把『本質上的美好』和『行為表現』混為一談。"}
+  ],
+  techniques:["自我價值肯定","本質與行為分離","現場示範教學"],
+  reflect:"試著完成這句話：「我是獨一無二的，我是一個 ______。」寫下來的時候，注意自己內在出現了什麼反應（自在？抗拒？想笑？）。"},
+
+ {id:"c6",time:"20:00–25:00",title:"珍寶相遇：覺察練習",en_title:"Jesse Meets Mary Ann — Noticing",
+  context:"Jesse 與另一位學員 Mary Ann 走到台前，Satir 引導兩人發現，她們雖然一直坐在彼此對面的走道，卻從未真正「看見」過對方。她藉此點出成長的核心：把「早已存在、卻從未被注意到的東西」帶入覺察。",
+  quotes:[
+   {en:"Did you know before this minute Mary Ann? ... No. Had you ever looked at her? No... think how many times in the world we're that close to somebody and don't even see them.",
+    zh:"在這一刻之前，你認識 Mary Ann 嗎？……不認識。你曾經看過她嗎？……沒有。想想看，我們在世界上有多少次，明明離某個人這麼近，卻從未真正看見他們。"},
+   {en:"something asks us to pay attention to something that's present, but we hadn't noticed it before... That's the basic part of growth. That something that is already present that we haven't noticed now gets noticed.",
+    zh:"有某件事，邀請我們去注意一個『早已存在、卻從未被留意』的東西……這正是成長最基本的部分：那個一直都在、卻沒被注意到的東西，現在被注意到了。"}
+  ],
+  techniques:["積極關注","此時此刻覺察","擴大覺察範圍"],
+  reflect:"在你目前最熟悉的一段關係裡（伴侶／家人／同事），有沒有一個「其實一直都在，但你從沒真正注意過」的特質或需求？"},
+
+ {id:"c7",time:"20:00–25:00",title:"兩種引導覺察的方式",en_title:"Two Ways to Bring Awareness",
+  context:"Satir 對比了兩種讓人「注意到自己」的方式：一種是像剛剛示範的正向邀請，讓人在被看見中感覺被珍視；另一種則是責備式的「你怎麼可能沒注意到，它明明就在你眼前」。她指出後者其實只會讓人感覺自己「不被接受」，而許多治療師、老師、父母卻不自覺地在使用第二種方式。",
+  quotes:[
+   {en:"'Well, you were sitting right across from her. I don't know how you could have missed her.' What do you suppose that would have done...? It's a way to say, 'For God's sakes, you're bad.' Or shut up.",
+    zh:"『妳明明就坐在她正對面，我不懂妳怎麼可能沒注意到她。』，你覺得這樣講會造成什麼影響？……這其實是換句話說『看在老天的份上，你真差勁』，或是『閉嘴』。"},
+   {en:"This second way that I'm talking about doesn't do very much with anybody except squash them... they are putting another piece of horror into that person's self about their unacceptability.",
+    zh:"我說的第二種方式，對任何人都起不了什麼作用，只會把人壓垮……他們其實是在對方的自我裡，又添加了一份『我是不被接受的』的恐懼。"}
+  ],
+  techniques:["建設性 vs 破壞性回饋","覺察引導的語言選擇","去羞辱化教學"],
+  reflect:"回想一次你（或你觀察到的人）用「它明明就在那裡，你怎麼會沒發現」這種語氣指出別人的盲點，如果重新說一次，你會怎麼換句話說？"},
+
+ {id:"c8",time:"25:00–30:00",title:"觸摸與連結：握手練習",en_title:"Touch & Connection — The Handshake",
+  context:"Satir 讓 Jesse 與 Mary Ann 實際做出接觸，先握手、再對眼神、再想像加入聲音語調。她特別示範了「政客式握手」（politician's handshake），形式上完成了接觸，卻完全沒有真正碰觸到對方，藉此凸顯「真實接觸」與「表演式社交」的差別。",
+  quotes:[
+   {en:"when you have a hand in your hand you not only have a form but you have flesh and you have warmth and you have activity... This is an alive piece of you. So, you feel that aliveness with each other.",
+    zh:"當你的手握著另一隻手時，你握住的不只是一個『形狀』，還有血肉、溫度與活著的律動……這是你活生生的一部分。所以，你們彼此感受到的是彼此的『鮮活』。"},
+   {en:"How do you do? How are you? I'm glad to see you... That's the politician's handshake. It covers ground but it never lights anywhere.",
+    zh:"『你好嗎？很高興見到你』……這就是政客式的握手。它涵蓋了場面，卻從未真正點亮任何地方。"},
+   {en:"your voice tone reflects me and where I am with myself. And so, when I change with where I am with myself, my voice changes.",
+    zh:"你的聲音語調反映的是『我』，反映我此刻與自己的關係狀態。所以當我內在的狀態改變時，我的聲音也會跟著改變。"}
+  ],
+  techniques:["身體接觸與連結","聲音語調的一致性","表演式互動 vs 真實接觸"],
+  reflect:"你自己說「你好嗎」的時候，聲音語調通常反映的是哪一種狀態，真正的好奇？還是社交慣性？下次會談開場前，試著先聽聽自己的聲音語調在說什麼。"},
+
+ {id:"c9",time:"30:00–35:00",title:"問題取向 vs 寶藏取向",en_title:"Problem-Focus vs Treasure-Focus",
+  context:"Satir 直接點名「以問題為中心」的助人取向的侷限，多數助人工作，一開始就聚焦在「你的問題是什麼」，但她真正感興趣的問題是：「你的夢想發生了什麼事？」她指出，幾乎所有的問題行為背後，都是「自我價值失落、夢想已死」的答案。",
+  quotes:[
+   {en:"when we are helpers we start out with being with problems instead of with the people that are there... What's your problem? ... that's really of very little interest to me. What for me is a big interest is what happened to your dreams?",
+    zh:"我們身為助人者，常常一開始就『與問題同在』，而不是『與眼前這個人同在』……『你的問題是什麼？』……這對我來說其實一點都不有趣。真正讓我感興趣的問題是，你的夢想，發生了什麼事？"},
+   {en:"the problem is the answer to my dreams have died, myself is not a value, and so we have the problem of not doing well in school, of drinking, of taking drugs, of aggression, all that come back to that... that of course is a self-worth issue.",
+    zh:"問題的答案通常是，『我的夢想已經死了』、『我這個人沒有價值』，於是我們才看到學業表現不佳、酗酒、用藥、攻擊行為等各種『問題』，追根究底，都回到同一件事，這其實是一個自我價值的議題。"}
+  ],
+  techniques:["問題取向轉為夢想／資源取向","自我價值為核心病理架構","晤談開場提問設計"],
+  reflect:"如果把你下一位個案的開場提問，從「你今天想談什麼問題」改成「你這陣子，你的夢想發生了什麼事」，你猜想個案的反應會不一樣嗎？你自己問出這句話時，會不會感覺卡卡的？"},
+
+ {id:"c10",time:"35:00–40:00",title:"織布機與掛毯的隱喻",en_title:"The Loom & Tapestry Metaphor",
+  context:"為了說明「理論」與「個別化介入」之間的關係，Satir 用織布機（loom）與掛毯（tapestry）作比喻，織布機上已經架好的經線與緯線，就像她所使用的概念與覺察框架（理論）；而每一次與個案／家庭工作，實際織出來的圖案，則因對象而完全獨特。",
+  quotes:[
+   {en:"here is a loom already set up... this loom and all of these threads are like the grid of the concepts and awarenesses that I use to be helpful to people... where you are and the particular ways in which you would like to see that... becomes the design.",
+    zh:"這裡有一台已經架設好的織布機……這台織布機和上頭所有的線，就像是我用來幫助人們的一整套概念與覺察框架……而你現在的狀態、你希望被看見的方式，則會成為最後織出來的『圖案』。"},
+   {en:"If I approach people with what's wrong with them, then that's the basis of my loom... my design is going to reflect all the problems that are there. And they'll be in terrible colors for the most part and won't be a very interesting design.",
+    zh:"如果我一開始就用『這個人哪裡有問題』的角度去接近他們，那就等於是把這個當成我織布機的基礎……最後織出來的圖案，就會反映出所有的問題，而且大多數顏色都會很難看，設計也不會有趣。"}
+  ],
+  techniques:["理論作為結構而非公式","隱喻式教學","個別化介入設計"],
+  reflect:"如果把你目前最常用的一套治療理論想像成「織布機」，你覺得自己現在比較常織出「問題色調」的掛毯，還是「資源／夢想色調」的掛毯？"},
+
+ {id:"c11",time:"40:00–70:00",title:"「你想要發生什麼事？」分享輪",en_title:"What Do You Want to Have Happen?",
+  context:"建立起安全與連結的氛圍後，Satir 邀請學員輪流走到台前，回答她最核心的提問：「你希望在這裡，為自己發生什麼事？」六位學員的分享，也成為這場示範中最豐富的活教材，每一段對話裡，Satir 都示範了不同的介入技巧。",
+  cases:[
+   {name:"Louis — 理論整合的渴望",
+    quotes:[{en:"What I would like to have happen to me is that as you go through this weekend, there would be a recognition on my part of how the model of this theory or the model of that theory, how you tie it all in together.",
+      zh:"我想在這個週末裡發生的是，我能認出，妳是如何把這個理論、那個理論的模式，全部串連整合在一起的。"}],
+    techniques:["理論整合的提問","流派對話"]},
+   {name:"Nancy — 治療師的珍寶感",
+    quotes:[{en:"I want to learn to experience my own treasureness in working with couples... Instead of an incompetent, insecure, I really don't have anything to give... we forgot to update ourselves and when we get into our treasure hood, the updating comes.",
+      zh:"我想學會在與伴侶工作時，真正體驗到自己身為『珍寶』的感覺……而不是『我很無能、我很不安、我其實沒什麼可以給的』……我們常常忘記『更新自己』，而當我們進入自己的珍寶狀態時，更新就會自然發生。"}],
+    techniques:["治療師的自我狀態","早年內化訊息的覺察"]},
+   {name:"Trish — 內隱學習與信任結構",
+    quotes:[{en:"I've taken in so much of you as a model unconsciously... you saw things happen which your conscious didn't have anything to do with... you had a great structure there. I got feet and arms and a body and I can breathe... whatever design I'm doing at a moment in time I can trust it.",
+      zh:"我在無意識中，吸收了很多妳這個『示範者』的樣子……妳看見了一些事情發生，而那些根本不是妳意識能控制的……妳其實擁有一個很穩固的結構，我有腳、有手臂、有身體，我可以呼吸……所以無論我此刻在編織什麼樣的圖案，我都可以信任它。"}],
+    techniques:["示範學習／內隱學習","身體作為安全基礎的隱喻"]},
+   {name:"Beth — 追夢與責任界線",
+    quotes:[
+     {en:"I'd like to find a way to go after my dreams without hurting other people... is it possible to live my life taking risks... without that being threatening to them?... Who decides, Beth? Who decides how one is threatened?",
+      zh:"我想找到一種方式，能追求自己的夢想，同時不傷害別人……我能不能冒險過我的人生，而不會讓在乎我的人感到被威脅？……是誰來決定的呢，Beth？是誰決定『一個人是否感到被威脅』？"},
+     {en:"whatever I give to somebody, they have to deal with... they have to decide whether they'll take it or not... I have my foot here, you can't have your foot here. But neither can I have my foot where your foot is.",
+      zh:"無論我給出什麼，對方都必須自己去處理……他們要自己決定要不要接受……我的腳站在這裡，你的腳就不能站在這裡；但同樣地，我的腳也不能站在你腳站的地方。"}],
+    techniques:["責任界線區分","自我與他人責任的釐清","空間隱喻教學"]},
+   {name:"Peter — 移情辨識與症狀犧牲",
+    quotes:[
+     {en:"I would like to learn why I seem to be so frightened to open my heart fully to my wife... If you were to give your heart fully to your wife, would she give it back? I guess I'm scared she wouldn't... this beautiful one here forgot... his wife is not his mother.",
+      zh:"我想理解，為什麼我似乎如此害怕把心完全打開給我的太太……如果你把心完全交給你的太太，她會把它還給你嗎？我想我是害怕她不會……這位美好的人，他忘記了……他的太太，不是他的母親。"},
+     {en:"Most symptoms in children are sacrifices for the parents. Only they don't know it.",
+      zh:"大多數孩子的症狀，其實都是為了父母所做的犧牲，只是孩子自己並不知道。"}],
+    techniques:["原生家庭移情辨識","身體感受的重新框架","代間傳遞覺察"]},
+   {name:"Gloria — 觸摸、允許與智慧盒",
+    quotes:[
+     {en:"I think it's more of a how relating with clients I tend to be warm and nurturing... this school of thought says, 'Now you're going to be maternal... Oh gosh, this is an ego trip for you.'",
+      zh:"我想要的，其實比較是關於，我在與個案互動時，傾向溫暖而滋養的風格……但某個學派會說：『妳現在是在扮演母親角色……天啊，妳這根本是在滿足自己的自尊需求。』"},
+     {en:"leeching was thought to be a very respectable, useful form of treatment... Today, if anybody hauls out leeches, I run... I think we're in a similar place about what is healing to people.",
+      zh:"水蛭放血療法，曾經被視為一種備受尊敬、有效的治療方式……而今天，只要有人拿出水蛭，我會拔腿就跑……我認為，我們現在對『什麼才是真正的療癒』，正處於類似的處境。"},
+     {en:"your wisdom box... halfway between your navel and your heart... That's the place where your truth is for you.",
+      zh:"你的智慧盒……大約在肚臍和心臟的中間……那是屬於你自己真理所在的地方。"}],
+    techniques:["觸摸與允許","治療取向的歷史脈絡反思","智慧盒（身體化直覺）隱喻"]}
+  ],
+  reflect:"六位學員的提問中，哪一位的困擾跟你最接近？如果由你站上台，你會怎麼回答 Satir 的提問：「你希望在這裡，為自己發生什麼事？」"},
+
+ {id:"c12",time:"70:00–結束",title:"收尾：連結確認",en_title:"Closing the Segment",
+  context:"段落尾聲，Satir 確認在場所有人都感受到彼此的連結，沒有人想要離開，為接下來四天的訓練定調，她說，這只是「開始編織圖案」的起點。",
+  quotes:[
+   {en:"I wonder how many of you in this room could really feel a sense of connecting with all the people who've talked up here... it looks fine to me. So, this we will begin with our design. And go further as it turns out.",
+    zh:"我很好奇，在座有多少人，真的感受到自己和這些站出來分享的人之間的連結……看起來狀況很好。所以，我們就從這裡，開始編織我們的圖案，接下來會如何展開，就讓它自然發生。"}
+  ],
+  techniques:["團體凝聚力確認","收尾與過渡"],
+  reflect:"看完這整段示範，你最想帶回自己實務工作中的一個技巧或態度是什麼？寫下一句「我想開始嘗試……」"},
+
+ {id:"c13",time:"Seg.II 00:00–05:00",title:"知覺的主觀性：我看到的，不代表事實",en_title:"The Subjectivity of Perception",
+  context:"第二段示範開場，Satir 從一個房間觀察遊戲切入：同一個房間待兩分鐘的二十人，說出的觀察內容幾乎沒有人完全一樣。她提出核心命題，我在任何時刻所「看見」的，只反映我自己準備好要看見什麼，跟客觀存在的事實幾乎沒有太大關係。",
+  quotes:[
+   {en:"what I see at a moment in time is only what I see... it's only what I saw... I see what I'm prepared to see... what I'm prepared to see usually comes from my experience both negative and positive.",
+    zh:"我在某一刻所看到的，就只是我看到的東西……那只是我看見的，不代表『存在』本身。我看見的，是我『準備好要看見』的東西……而我準備好要看見什麼，通常來自我過去的經驗，無論是負面或正面的。"}
+  ],
+  techniques:["知覺主觀性","積極關注"],
+  reflect:"回想一次你和另一個人對「同一件事」的觀察完全不同，你猜，是什麼過去的經驗讓你「準備好」看見你看見的那個版本？"},
+
+ {id:"c14",time:"延續前段",title:"誰是對的？，你們都對，因為誰都沒看到全部",en_title:"Neither of You Has Seen the Total",
+  context:"當兩人對同一事件各執一詞時，Satir 立刻打斷「誰對誰錯」的爭論，直接宣告「你們都是對的，因為你們都沒有看到全貌」，把焦點從評斷轉向探索。",
+  quotes:[
+   {en:"I cut the argument immediately and I say you're both right, you're both right, and neither of you have seen the total... so then what we do is we stop the business about who's right and we go to the exploring of what's there.",
+    zh:"我會立刻打斷爭論，說『你們兩個都對，你們都對，而且你們誰都沒有看到全貌』……於是我們就不再糾結『誰對』，轉而一起去探索『到底發生了什麼』。"}
+  ],
+  techniques:["去除誰對誰錯","多元真實觀"],
+  reflect:"下次伴侶或家庭成員在會談中爭論「誰的版本才對」時，你可以怎麼用一句話把焦點從評對錯轉向一起探索？"},
+
+ {id:"c15",time:"延續前段",title:"行為歷程七步模型",en_title:"The Seven-Step Model of Behavior",
+  context:"這是這段示範中最核心的理論架構，Satir 說明任何一個外顯行為背後，其實經過七道內在歷程：①知覺 ②意義（理智＋情感兩部分） ③與自我價值的連結 ④情緒反應 ⑤防衛 ⑥能否表達的自由（自我審查規則） ⑦最後才展現為行為。她強調如果想改變一個人，不該直接對行為下手，而要回頭理解這七道歷程。",
+  quotes:[
+   {en:"first of all I perceive something... that perception immediately has to be translated into meaning... the meaning has two parts to it, what is the intellectual meaning and what is the emotional meaning... I have to relate that to myself and my self-worth... then I begin to get emotional responses... I go to my defenses... what freedoms I give myself to comment on... and what comes out is a piece of behavior.",
+    zh:"首先，我知覺到某個東西……那個知覺立刻會被轉譯成『意義』，意義有兩個部分，理智上的意義，以及情感上的意義……接著我必須把它跟自己、跟自己的自我價值連結起來……然後我開始出現情緒反應……接下來我會啟動防衛機制……還有一個部分是，我允許自己對這一切表達多少自由……最後才展現出來的，是一個行為。"},
+   {en:"if I want to understand anybody's behavior what I need to do is start out with — what did you see... what kind of meaning did that make to you, how did you feel... how do you feel in yourself, how do you feel about yourself feeling that way — that's the self-worth feeling... it's not the feeling, it's the feeling about the feeling that tells you whether or not it's an okay feeling.",
+    zh:"如果我想理解任何人的行為，我要做的第一件事，是回到，你看到了什麼……那對你來說是什麼意義，你當時有什麼感覺……你對自己有什麼感覺，對『有這種感覺的自己』有什麼感覺，這就是自我價值感受……重點從來不是那個感覺本身，而是『你對那個感覺的感覺』，那才會告訴你，這個感覺是不是可以被接受的。"}
+  ],
+  techniques:["行為歷程模型","自我價值與感受的感受"],
+  reflect:"挑一個你自己最近的「問題行為」（拖延、發脾氣、逃避），試著用這七步倒推：知覺→意義→自我價值→情緒→防衛→表達自由→行為，你會怎麼填寫每一格？"},
+
+ {id:"c16",time:"延續前段",title:"銀器與 Minnie 阿姨：七步模型的實例",en_title:"The Silverware Story",
+  context:"Satir 用一個具體場景示範七步模型如何運作：孩子在 Minnie 阿姨面前拿錯了餐具，母親因此感到憤怒又羞愧，卻因為「不該有這種感覺」的內在規則而壓抑下來，最終表現出的行為只是冷淡地叫孩子離開餐桌，旁人只看得到最後這個行為，卻看不到底下六層歷程。",
+  quotes:[
+   {en:"if I feel guilty about feeling angry... my emotional response... is to get very tight and remote. My defense... could be that I privately see you as someone who gets in my way... I have rules about commenting which say I cannot say anything... so I hold all that in — result: the behavior of the mother... was to move over to that child and tell her to leave the table immediately.",
+    zh:"如果我對『自己感到憤怒』這件事感到愧疚……我的情緒反應會是變得很緊繃、很疏離。我的防衛可能是，私底下把你看成是那個『擋我路的人』……而我還有一條規則告訴我不能把這些說出來……所以我把這一切都壓在心裡，結果，母親當下展現出來的行為，就只是走過去叫那個孩子立刻離開餐桌。"}
+  ],
+  techniques:["行為歷程模型","去病理化"],
+  reflect:"在這個例子裡，旁人只看到「媽媽叫孩子離開餐桌」這個行為。你自己身邊有沒有一個「只看得到表面行為」、但你現在能猜到底下藏著哪六層歷程的例子？"},
+
+ {id:"c17",time:"延續前段",title:"檢核而非假設：CIA 遊戲的警告",en_title:"Check It Out, Don't Assume",
+  context:"Satir 警告治療師不要陷入她所謂的「CIA 遊戲」，看到一個線索，就自動腦補背後的意義，卻沒有向當事人查核。她用「發抖的牙齒」為例：治療師可能自動假設對方冷了，卻沒有先問對方實際感受到什麼。",
+  quotes:[
+   {en:"there's been a tendency among therapists to think they know what it's about... we have engaged in a CIA game... 'I notice your teeth are chattering... what I make of that is that you're cold, is that true?'... a lot of people see the teeth chattering and assume that they're cold... behavior doesn't tell us anything definitive at all, it needs to be checked out.",
+    zh:"治療師常常有一種傾向，以為自己已經知道這是怎麼一回事……我們就這樣玩起了『CIA 遊戲』（自行腦補、未經查證）……『我注意到你的牙齒在打顫……我猜想的是，你是不是覺得冷?這樣猜對嗎?』……但很多人一看到牙齒打顫，就直接假設對方是冷，行為本身從來不能告訴我們任何確定的事，它永遠需要被查核。"}
+  ],
+  techniques:["檢核而非假設"],
+  reflect:"回想你最近一次對個案的某個行為線索「自動下了判斷」而沒有先開口查核，如果重來一次，你會怎麼用一句話去查核？"},
+
+ {id:"c18",time:"延續前段",title:"兩代之間的意義傳遞：菸斗與牙齒的故事",en_title:"The Pipe & the Grandfather's Story",
+  context:"Satir 分享一個家庭案例：父親咬菸斗發出「喀」的聲音，兩個兒子反應截然不同，一個緊張畏縮，因為聽爺爺說過自己就是這樣咬掉牙齒的，這孩子把父親「幻視」成沒有牙齒的爺爺；另一個孩子則從未聽過爺爺這段往事，反而把那個聲音理解為父親要靠近、要陪他的訊號，於是往父親身邊靠。同一個刺激，因為兩人各自攜帶的意義故事不同，長出完全不同的行為。",
+  quotes:[
+   {en:"the boy who started to get nervous... told me that his grandfather had told him that this is the way he lost his teeth... this boy's grandfather's words came to him and he was visualizing his father as being without his teeth. The one who went close to him didn't have that problem because he never heard his grandfather talk... there's not a universal answer to anything, there's a process answer but not a universal.",
+    zh:"那個開始緊張的男孩……告訴我，他爺爺曾跟他說過，自己就是這樣咬掉牙齒的……於是這個孫子聽到父親咬菸斗的聲音時，爺爺的話就浮現出來，他『看見』的是一個沒有牙齒的父親。而另一個往父親身邊靠近的孩子，沒有這個問題，因為他從沒聽過爺爺講這段往事……任何事情都沒有『放諸四海皆準』的意義，只有『這個人的歷程』所賦予的意義。"}
+  ],
+  techniques:["意義的代間傳遞","知覺主觀性"],
+  reflect:"在你的原生家庭裡，有沒有一個「上一代的故事」至今仍在悄悄影響你對某個聲音、動作或情境的反應？"},
+
+ {id:"c19",time:"延續前段",title:"自我價值不等於「做好事」",en_title:"Doing Good ≠ Feeling Good About Yourself",
+  context:"Satir 直接挑戰一個常見迷思，「做好事」和「感覺自己有價值」是兩回事，她見過許多在外行善、回家卻痛打孩子的人。她也用歷史脈絡提醒大家：「人類生命有價值」這個信念其實非常年輕，距離女性擁有投票權、兒童不再被當成童工送進工廠煤礦，也不過八十幾年。",
+  quotes:[
+   {en:"the doing of good things is not the same as feeling good about yourself. I know people... that do all kinds of good things out in the world and beat hell out of their kids at home... in 1900 women didn't have the vote, women couldn't own anything, women and children were chattel... that's only 84 years ago.",
+    zh:"做好事，跟感覺自己有價值，是兩回事。我認識很多人……在外面做盡各種好事，回家卻對自己的孩子拳打腳踢……在 1900 年，女性沒有投票權，女性不能擁有財產，女性和兒童幾乎被當成財產一樣……而那，不過是八十四年前的事。"}
+  ],
+  techniques:["自我價值與感受的感受","歷史脈絡反思"],
+  reflect:"你身邊有沒有「在外面很會做好事、對自己人卻很嚴苛」的例子（也許包括你自己）？這句話讓你想到什麼？"},
+
+ {id:"c20",time:"延續前段",title:"防衛的代價：「不是我，是你」",en_title:"The Cost of Defenses",
+  context:"Satir 說明防衛機制雖然保護了自我，卻也讓人付出極高代價，最常見的一種是「投射」，把責任推到對方身上：「不是我，是你害我變成這樣」，這種防衛在極端狀況下甚至可能導向傷害對方。她也提醒身體其實一直在感受、一直在反應，即使意識層面「感覺不到」，例如僵直型病人的身體仍持續在登錄情緒。",
+  quotes:[
+   {en:"the defense about 'I'm not going to trust anybody because everybody is a threat to me'... helps us but it helps us to not get whatever it is... the defense 'it isn't me, it's you' — projection... I have to do things because you're responsible for my fate.",
+    zh:"像『我誰都不信任，因為每個人對我來說都是威脅』這種防衛……它確實保護了我們，卻也讓我們得不到自己真正想要的東西……『不是我，是你』的防衛，也就是投射……我必須這麼做，因為是你要為我的命運負責。"}
+  ],
+  techniques:["去除防衛代價"],
+  reflect:"你自己最常用的一種防衛方式是什麼？它保護了你什麼，又讓你付出了什麼代價？"},
+
+ {id:"c21",time:"延續前段",title:"停止行為 vs 創造選項：三個替代方案的魔法",en_title:"The Magic of Three Alternatives",
+  context:"Satir 分享一個案例：一位男士揚言要「殺了」總愛挑剔他的岳母。她沒有花時間去「阻止」這個念頭，而是直接問他「打算怎麼做」，再邀請他一起想出至少兩個以上的替代方案。她指出，當一個人擁有選項，就不會感覺被逼迫；如果手上只有一種辦法，那就只能用那個辦法。",
+  quotes:[
+   {en:"I spend no time in stopping behavior... 'let's think of at least two other ways'... there's magic in the three alternatives — if you don't use your energy trying to get somebody to stop something and instead get your energy to find new possibilities, then a person is in a position of choice... you never feel pressed.",
+    zh:"我從不花時間去『阻止』某個行為……『我們至少再想兩個其他的辦法』……三個替代方案裡有一種魔法，如果你不把力氣花在『阻止某人做什麼』，而是把力氣拿去『尋找新的可能性』，這個人就會處在一個可以選擇的位置……而人在有選擇的時候，永遠不會感覺被逼迫。"}
+  ],
+  techniques:["選項優於禁止"],
+  reflect:"下次個案說出一個令你擔心的衝動行為時，除了「不要那樣做」，你可以怎麼問，才能一起找出至少兩個替代方案？"},
+
+ {id:"c22",time:"延續前段",title:"從病理走向喜悅",en_title:"From Pathology to Joy",
+  context:"Satir 點出治療領域長期停留在「把人從病理帶回功能」的目標，但她認為這還不夠，她想帶當事人走向「喜悅與創造力」的狀態。她分享一個個案：一位被診斷為思覺失調症的年輕藝術家，九個月治療後，父親對他說「謝謝你生病，讓我們一家人能重新好起來」，症狀在此被重新理解為「卡住的成長」發出的訊號，而非單純的壞事。",
+  quotes:[
+   {en:"I'm not satisfied with bringing people to function. I want them to become... to a state of joy and a state of creativity... a symptom is looked upon for me as something very important because how would we know that anybody was stuck if they didn't have a way of showing it... the father put his hand on his shoulder and said, 'thank you son for getting sick so we could get well.'",
+    zh:"我並不滿足於只是把人帶回『能夠正常運作』的狀態。我想讓他們走向……喜悅與創造力的狀態……對我來說，症狀其實非常重要，因為如果一個人卡住了，卻沒有辦法用某種方式表現出來，我們怎麼會知道呢?……父親把手放在他肩上說：『謝謝你生病，讓我們一家人能重新好起來。』"}
+  ],
+  techniques:["病理轉向喜悅","症狀作為訊號"],
+  reflect:"如果把你目前工作中「最頭痛的一個症狀／問題行為」，重新理解成「這個人卡住的成長正在試著發出訊號」，你對這個案主的態度會有什麼不同？"},
+
+ {id:"c23",time:"延續前段",title:"陽光才能催開花苞：黑暗花園的隱喻",en_title:"It Takes the Sun to Set a Bud",
+  context:"Satir 用一段親身經歷作結：她曾想把一株美麗的黃花植栽移到自家陰暗的小花園，苗圃老闆卻告訴她「沒有陽光，花苞是開不了的」。她借此提醒在場助人者，我們常常把孩子帶回一個「陰暗的花園」，卻疑惑為什麼花苞遲遲不開。",
+  quotes:[
+   {en:"'don't you know it takes the sun to set a bud?'... if there's the darkness then you won't get the bud... we take the kids home and put them in dark gardens and then wonder where the buds are.",
+    zh:"『你不知道嗎?要有陽光，花苞才會結成。』……如果只有黑暗，花苞是不會出現的……而我們常常把孩子帶回家、放進一座陰暗的花園，然後納悶著：花苞到底在哪裡呢?"}
+  ],
+  techniques:["病理轉向喜悅","隱喻式教學"],
+  reflect:"在你目前的工作或家庭場域裡，有沒有一個「陰暗花園」的例子，一個環境條件不足、卻被期待要「自己開花」的人或情境？"},
+
+ {id:"c24",time:"延續前段",title:"配對的權力雕塑：誰站著、誰跪著",en_title:"Sculpting Hierarchical Pairs",
+  context:"這是本段最長的現場示範，Satir 邀請三男三女上台，親手擺出「上對下」的權力配對姿勢：跪拜、賜福、打手勢羞辱等三種變化，示範階層式關係如何同時滲透在婚姻、親子、師生、信徒與神職人員之間。她坦言行醫數十年，「從未」在成千上萬個案裡見過一段真正平等的關係。",
+  quotes:[
+   {en:"this is a picture of a heterosexual pair that's been in vogue for a very long time... that also can be the picture of a child and a father... of a student and a teacher, of a parishioner and the priest... how easy it is for this one down here... to feel that somebody else is worth more than me.",
+    zh:"這是一種流行了很久的異性伴侶畫面……這同樣也可以是孩子與父親的畫面……學生與老師、信徒與神職人員的畫面……而在下位的這一個人，是多麼容易就會覺得『別人比我更有價值』。"},
+   {en:"I can tell you without exception, with the thousands of people I have seen... I never found a relationship of equality that existed. Not once... what can you do when relationships with people are based upon this kind of thing? You have to go into manipulation and strategies... secrets... lies... and loneliness.",
+    zh:"我可以毫不誇張地告訴你，在我見過的成千上萬個案裡……我從來沒有找到過一段真正平等的關係，一次都沒有……當人與人之間的關係建立在這種上對下的基礎上時，你能怎麼辦?你只能走向操弄與策略……走向祕密……走向謊言，以及孤獨。"}
+  ],
+  techniques:["階層權力雕塑"],
+  reflect:"在你目前最重要的一段關係裡，有沒有一個「誰在上、誰在下」的固定位置？如果雙方都「站到自己的腳上」，這段關係可能會如何不同？"},
+
+ {id:"c25",time:"延續前段",title:"站穩自己的腳：從雕塑到真實擁抱",en_title:"Standing on Your Own Feet",
+  context:"示範進入下一階段，Satir 讓學員先感受「跪／被跪」姿勢帶來的疏離與危險感，接著引導他們想像手中握著一根「魔法許願棒」，讓自己重新站上自己的雙腳，自由移動。當兩人都站在同樣的高度、同樣自由時，原本的疏離會自然轉化，他們主動走向彼此、擁抱。",
+  quotes:[
+   {en:"put in your hand a wishing stick... which gives you the power to come to your own feet, standing on your own feet, relaxed and free to move... now look at each other and see what you want to do with each other, and do it... what made it possible for you to move toward the embrace when you were on your own feet? — basically a sense of freedom.",
+    zh:"在你手中放一根許願棒……它能讓你回到自己的雙腳上，站穩、放鬆，並且自由地移動……現在看著彼此，想想你想跟對方做什麼，然後就去做……是什麼讓你們能夠在站穩自己雙腳的時候，自然而然走向擁抱?，基本上，就是一種自由的感覺。"}
+  ],
+  techniques:["站穩自己的腳","身體接觸與連結"],
+  reflect:"如果用「站穩自己的腳」這個意象檢視你目前的一段關係，你現在的姿勢比較接近「跪著」、「站著俯視」，還是「兩人站在同樣的高度」？"},
+
+ {id:"c26",time:"延續前段",title:"學員回饋輪：「原來我一直沒站起來」",en_title:"Debrief — I Didn't Know I Was Held Down",
+  context:"練習結束後，Satir 逐一邀請學員分享感受。有人說「站起來之前，我根本不知道自己是跪著的」；有人說「原來當我在下位時，我覺得安全，因為那是我學會的生存技能」；也有人反思，自己一直不敢真正靠近伴侶，直到透過這個練習才第一次有了真實的碰觸與連結。Satir 藉此點出，很多人要親身「站起來」過一次，才會知道自己原來一直是跪著的。",
+  quotes:[
+   {en:"Doreen was following what she thought was expected of her — she didn't even know that she was held down until she stood up. So many people have an awareness about something different once they get to it, otherwise they accept it as the way it should be.",
+    zh:"Doreen 一直在做她以為別人期待她做的事，直到她真正站起來之前，她根本不知道自己一直被壓在下面。很多人要等到真正經歷過『不一樣的狀態』，才會產生覺察，否則他們只會把原本的狀態當成『本來就該如此』。"}
+  ],
+  techniques:["真人示範反思","站穩自己的腳"],
+  reflect:"有沒有一件事，你也是「親身經歷過不一樣的版本」之後，才發現自己過去一直習慣某種不對等或不自由的狀態？"},
+
+ {id:"c27",time:"Seg.III 00:00–05:00",title:"生命的神聖性與獨特性",en_title:"Sacredness & Uniqueness of Life",
+  context:"Satir 開場延續喜悅與成長的主題，指出「生命值得被尊重、不該被歸類擺佈」這樣的信念其實非常新。她進一步定義「人」的本質是「相同與差異的獨特結合」，並直接挑戰「相同才等於愛」的迷思——她做過實驗，讓十個人完全模仿同一人的一舉一動，五分鐘內就有人開始反胃。",
+  quotes:[
+   {en:"person equal person on the level of manifestation of self-worth... the definition of a person... is that the person is unique, a combination of sameness and difference to every other human being... sameness and difference are aspects of uniqueness, not signs for love or war.",
+    zh:"人與人在『展現自我價值』這個層次上是平等的……一個人的定義……是『相同與差異』獨特結合而成的存在……相同與差異，只是獨特性的兩個面向，而不是用來判斷愛或戰爭的訊號。"},
+   {en:"when I have people who insist upon sameness, I say okay, let's do a little thing... in five minutes I have vomiting sometimes... we once and for all put to sleep the idea that sameness is love. It is not.",
+    zh:"當有人堅持『相同才是愛』時，我會說，好，那我們來做個小實驗……五分鐘之內，有人就開始反胃……我們就此徹底打破一個迷思，相同不等於愛，它從來就不是。"}
+  ],
+  techniques:["獨特性肯定","自我價值與感受的感受"],
+  reflect:"在你的關係裡，有沒有哪一次你誤把「對方跟我不一樣」解讀成「我們不合」？如果把差異當成獨特性而非警訊，那段關係會有什麼不同？"},
+
+ {id:"c28",time:"延續前段",title:"我們沒有創造生命，生命本已存在",en_title:"We Did Not Create Life",
+  context:"Satir 提醒為人父母者——「你創造了孩子」是個常見的迷思，事實上生命（卵子與精子）早已存在，父母只是「啟動」了讓生命誕生的條件，就像環氧樹脂膠的兩劑，分開時各自安好，一旦接觸才會產生反應。她藉此邀請大家把自己視為某種生命力／靈性的載體，而非生命的創造者。",
+  quotes:[
+   {en:"we do not create life, life has already been created... your parents didn't create you either, they just activated the conditions... it reminds me of epoxy glue — you got those two pieces, and while they're by themselves nothing happens, put them together and all kinds of things happen.",
+    zh:"我們並沒有創造生命，生命早就已經存在了……你的父母也沒有創造你，他們只是啟動了讓生命誕生的條件……這讓我想到環氧樹脂膠，你有兩劑成分，分開時什麼都不會發生，一旦把它們放在一起，各種反應就開始了。"}
+  ],
+  techniques:["靈性觀點","去除全能感"],
+  reflect:"如果把「我創造了我的孩子／我的成就」換成「我啟動了讓它發生的條件」，你對自己與對方的責任感、掌控感會有什麼變化？"},
+
+ {id:"c29",time:"延續前段",title:"系統觀：沒有人該被究責",en_title:"Systems Thinking — No One to Blame",
+  context:"Satir 引入系統理論作為理解事件的框架——任何一個行為，都是彼此關係下的產物，不是單一原因造成的。她以一個典型家庭會談畫面為例：父親臉色臭、母親低頭啜泣、兒子抖腳想逃、小妹妹陣發性咳嗽，這些反應彼此牽動、環環相扣，一旦模式固定下來，只要一個小小的觸發點，整組反應就會自動啟動。系統觀點下，沒有人可以被單獨究責。",
+  quotes:[
+   {en:"a systems approach means that you look at the fact that everything responds to everything else — that's all there is. No one thing that can be to blame... A happens and B happens because A happens, C, and so on.",
+    zh:"系統觀點的意思是，你看見的是——所有事情都彼此回應著彼此，就是這樣而已。沒有任何單一一件事可以被拿來究責……A 發生了，於是 B 發生；因為 A 發生了，C 也發生了，依此類推。"},
+   {en:"pa turned sour, ma turns worried, son is scared and ready to run, baby sister... is trying to get their attention... after the patterns are developed, then it's only a trigger to make the whole thing come into being.",
+    zh:"爸爸臉色一沉，媽媽開始擔心，兒子感到害怕、想要逃跑，妹妹……則是在用她的方式想引起大家注意……當這個模式已經成形之後，只需要一個很小的觸發點，就能讓整組反應瞬間啟動。"}
+  ],
+  techniques:["系統觀取代究責","家庭系統知覺差異"],
+  reflect:"想一個你熟悉的家庭或伴侶互動模式，試著用「A發生了所以B發生，因為B所以C……」的方式描述一輪循環，而不指名誰是始作俑者。"},
+
+ {id:"c30",time:"延續前段",title:"個人的八個層次",en_title:"Eight Levels of the Individual",
+  context:"Satir 把系統觀點帶進個人內在——她提出理解任何一個人的行為時，可以檢視八個彼此互動的層次：身體、智性（想法）、情緒感受、感官知覺、人際互動、情境脈絡、營養攝取，以及靈性。她強調任何一個行為的出現，都是這八個層次共同作用的結果。",
+  quotes:[
+   {en:"we have a physical, we have a body... then we have the intellect... then we have feelings... senses... the whole interactional thing... the context... the nutrition... and then we have the spiritual — that's eight levels... how are all these eight levels working together to create this?",
+    zh:"我們有身體這個層次……接著是智性、想法……然後是情緒感受……感官知覺……人際互動的部分……情境脈絡……營養攝取……最後是靈性，這就是八個層次……這八個層次是如何共同運作，產生出眼前這個行為的？"}
+  ],
+  techniques:["個人八層次評估"],
+  reflect:"挑一個你最近的情緒反應，試著用這八個層次逐一檢視：當時你的身體狀態、想法、感受、感官刺激、人際互動、情境、飲食，以及靈性狀態分別是什麼？"},
+
+ {id:"c31",time:"延續前段",title:"改變即風險：安全感建立在冒險之上",en_title:"Security Rests on Taking Risks",
+  context:"Satir 主張改變是恆常發生的，一旦人們接受這個事實，改變就會從「威脅」變成「可以被歡迎的」。她指出任何改變都意味著從未去過的地方，因此改變必然伴隨風險；而真正的安全感，不是建立在維持現狀上，而是建立在願意冒險之上。",
+  quotes:[
+   {en:"change is constant, it is always going on... all change means that I go from point A to point B, I'm always going into a place I've never been... security then, within this frame of thinking, rests on taking risks, not on keeping your status quo.",
+    zh:"改變是恆常的，它一直在發生……任何改變都意味著，我要從 A 點走到 B 點，我永遠是要走向一個我從未去過的地方……在這樣的思維框架下，安全感建立在願意冒險之上，而不是建立在維持現狀之上。"}
+  ],
+  techniques:["改變即冒險","安全感重新定義"],
+  reflect:"回想一次你選擇維持現狀以求安全的經驗，如果重新用「安全感來自願意冒險」的角度看，那次選擇會不會有不同的可能？"},
+
+ {id:"c32",time:"延續前段",title:"邀請而非強迫：改變工作中的倫理",en_title:"Invitation, Not Force — Ethics of Change Work",
+  context:"談到如何引導個案跨出改變的一步時，Satir 強調她從不用言語說服，而是直接邀請、實際帶著對方走一段，因為沒有人能對自己完全陌生的事物做出「知情決定」。她也提醒這份權力伴隨著高度倫理責任：治療停滯的常見原因，正是治療師因為捨不得讓個案「痛一下」而不敢把界線往前推。",
+  quotes:[
+   {en:"I simply say, here, I want to show you something, I reach out my hand and then we're here... most vulnerable place is when you have allowed yourself to... allow someone else to give you direction — that's already vulnerable... people with perfectly good ethics refrain from helping their people to stretch... and as a result so much therapy stagnates.",
+    zh:"我只是說，來，我想讓你看看一個東西，然後伸出手，我們就到了那裡……最脆弱的時刻，就是當你願意讓自己……讓另一個人為你指引方向的那一刻，那已經是一種脆弱了……有些倫理觀念很好的助人者，反而因此不敢邀請個案伸展自己……結果，許多治療就這樣停滯不前。"}
+  ],
+  techniques:["邀請而非強迫","治療倫理反思"],
+  reflect:"你有沒有因為捨不得讓個案不舒服、而選擇不推進某個介入的經驗？現在回頭看，那個猶豫保護了誰？"},
+
+ {id:"c33",time:"延續前段",title:"打斷排練式敘事：Mirabelle 示範",en_title:"Interrupting the Rehearsed Story",
+  context:"Satir 現場示範如何處理個案「排練多次、像唱歌一樣」的抱怨敘事——她故意打斷正在講述丈夫酗酒晚歸的「Mirabelle」，把她從對記憶說話拉回跟眼前真實的人接觸，引導她一路從憤怒、孤單，到覺察自己承接了「都是我不好」的愧疚感，最後練習用身體移動具體表達她想要的親近距離。",
+  quotes:[
+   {en:"if I let her go on and on and on, I don't give her anything new to look at... what I needed to do is get her in touch with something that was going on with her right here, that she was a person when I was a person, and we were going to do a real thing together.",
+    zh:"如果我讓她一直講下去，我沒有給她任何新的東西可以看見……我需要做的，是讓她接觸到當下正在她身上發生的事，她是一個人，我也是一個人，我們要一起做一件真實的事。"},
+   {en:"how do you feel about allowing yourself to let your anger feelings out?... when you were little, how was it with you and your mother and father when you got angry? — well, I was punished... yet you should have done something better? What should you have done better, Mirabelle?",
+    zh:"允許自己把憤怒的感覺表達出來，你感覺如何？……你小時候，當你生氣的時候，跟父母之間是什麼樣子？——嗯，我會被懲罰……所以妳『應該』要做得更好？Mirabelle，妳覺得妳應該做得更好是什麼意思？"}
+  ],
+  techniques:["打斷排練式敘事","此時此刻覺察","代間傳遞覺察"],
+  reflect:"你有沒有遇過個案反覆講述同一個排練好的故事？下次遇到時，你可以怎麼用一句話把他們拉回此時此刻？"},
+
+ {id:"c34",time:"延續前段",title:"治療姿態的演化史：從盆栽到站起來移動",en_title:"The Potted-Plant Therapist Evolves",
+  context:"Satir 用一連串現場擺位示範心理治療姿態的歷史演變——從隔著桌子正襟危坐做筆記的「盆栽治療師」，到拿走桌子、圍成圓圈、放下筆記本，一路演化到她自己這種站起來、主動走向個案、用身體與聲音全然參與的工作方式。她笑稱早期治療師「坐到長繭、麻痺，而且麻痺會往上蔓延」。",
+  quotes:[
+   {en:"at the beginning you stayed like a potted plant and didn't move... when you sit eight hours or six hours in a chair you get calluses and paralysis, and it usually travels upward... I don't sit, I get up... I know that they are part of life force just like me.",
+    zh:"早期的做法是，你像一株盆栽一樣坐著，一動也不動……當你一坐就是六到八個小時，你會長繭、會麻痺，而且麻痺通常會往上蔓延……我不坐著，我會站起來……因為我知道，他們就跟我一樣，都是生命力的一部分。"}
+  ],
+  techniques:["治療姿態演化","身體接觸與連結"],
+  reflect:"你自己在會談中的身體姿態，比較接近盆栽治療師，還是站起來參與？哪一種姿態，讓你自己感覺更貼近眼前的人？"},
+
+ {id:"c35",time:"延續前段",title:"如果不好玩，那就別做了",en_title:"If It Isn't Fun, Forget It",
+  context:"Satir 直言，如果治療過程中沒有樂趣，她很懷疑是否真的發生了什麼真實的東西。她用弄丟鑰匙的比喻說明——很多人為了根本不存在的威脅而焦慮到脊椎發疼，一旦發現鑰匙其實一直在口袋裡，就能笑出來；她鼓勵助人者練習問個案「這件事真的會要你的命嗎」，把恐懼放回現實比例。",
+  quotes:[
+   {en:"if it isn't fun, forget it... if we can't have fun with what we're doing, do you suppose anything real is getting done? I don't think so... will it kill you, do you think? — no, hardly ever does — well, if it won't kill you, we got lots of opportunity to move.",
+    zh:"如果這件事不好玩，那就別做了……如果我們沒辦法在自己做的事情裡找到樂趣，你覺得真的有什麼實質的東西在發生嗎？我不這麼認為……你覺得，這件事真的會要你的命嗎？幾乎不會，好，如果它不會要你的命，那我們就有很多空間可以移動了。"}
+  ],
+  techniques:["幽默作為介入","病理轉向喜悅"],
+  reflect:"回想你最近一次因為某件事焦慮到不行，如果現在問自己「這件事真的會要我的命嗎」，答案會讓你的焦慮鬆動一點嗎？"},
+
+ {id:"c36",time:"延續前段",title:"威脅獎賞模式 vs 種子模式",en_title:"Threat-and-Reward vs. Seed Model",
+  context:"這是本段最核心的理論架構——Satir 提出兩種看待人際互動的模式：「威脅獎賞模式」建立在階層與權力上，愛在這裡等於責任、交換、勒索與佔有；「種子模式」則把愛視為一種源自和諧的感受，無法被立法、買賣或強迫。她也示範用同一套框架重新解讀憤怒——在種子模式裡，憤怒不是該被壓抑的壞情緒，而是像汽車儀表板上的警示燈，提醒我們有什麼東西失衡了。",
+  quotes:[
+   {en:"love in the threat and reward model means duty... blackmail... bargaining... in the seed model, love is recognized as a feeling — the result of the harmony of parts within the self... it cannot be legislated, bought, or sold.",
+    zh:"在威脅獎賞模式裡，愛意味著責任……勒索……討價還價……而在種子模式裡，愛被理解為一種感受，是自我內在各部分和諧一致所產生的結果……它無法被立法規定、無法被買賣。"},
+   {en:"anger... is another emotion which I regard as an emergency emotion, something that comes when something is out of balance — the same way that a red light goes on in the car... it's the emergency red light that says something needs attention.",
+    zh:"憤怒……是一種我稱之為緊急情緒的感受，它會在有什麼東西失衡的時候出現，就像汽車儀表板上亮起的警示燈一樣……它是那盞緊急警示燈，提醒我們有些事情需要被關注了。"}
+  ],
+  techniques:["威脅獎賞vs種子模式","憤怒作為警示燈"],
+  reflect:"把「愛」或「憤怒」放進威脅獎賞模式與種子模式各自解讀一次，你發現自己在關係中比較常用哪一種語言在描述這兩種感受？"},
+
+ {id:"c37",time:"延續前段",title:"發現與選擇 vs 評判與強制",en_title:"Discover & Choose vs. Judge & Enforce",
+  context:"Satir 指出兩種模式各自對應的關鍵動詞——種子模式的核心是「發現」與「發展選擇」；威脅獎賞模式的核心則是「評判」與「強制執行判斷」。她的改變工作總是從尊重個案「目前用他們所學到的最好方式在生存」開始，再透過增加新的可能性（而非剝奪舊的）來促成改變，改變之後，不再合用的舊模式會像衣櫃裡不合身的衣服一樣自然地被閒置。",
+  quotes:[
+   {en:"the word that stands out in an approach is to discover... and the second word is to develop choices... the word that stands out in the threat and reward model — you judge it... and enforce your judgment.",
+    zh:"在這個取向裡，最突出的一個詞是『發現』……第二個詞是『發展選擇』……而在威脅獎賞模式裡，最突出的詞是，你去評判……然後強制執行你的判斷。"},
+   {en:"anyone who wants to help to change needs to be prepared to add new possibilities, not to take anything away, but to add... by the principle of atrophy — that which no longer fits, I don't use... I don't have to waste time destroying it, it atrophies by itself.",
+    zh:"任何想幫助別人改變的人，都要準備好增加新的可能性，而不是拿走什麼，而是增加……根據廢用萎縮的原則，不再合用的東西，我就不再使用它……我不需要花時間去摧毀它，它會自己慢慢廢棄。"}
+  ],
+  techniques:["增加而非剝奪","廢用萎縮原則"],
+  reflect:"在你目前想幫助某個人改變的情境裡，你比較常用「拿走什麼」的語言，還是「增加什麼」的語言？"},
+
+ {id:"c38",time:"延續前段",title:"哥倫布的隱喻：世界是圓的，人也是圓的",en_title:"Columbus — People Are Round",
+  context:"Satir 以哥倫布的故事作結——曾經全世界都「知道」地球是平的，直到一位年輕水手因為觀察到船隻消失在弧線上而心生懷疑，最終冒著被視為異端的風險證明了地球是橢圓的。她說，人類長期以來也把「人」當成扁平、可以被任意擺佈的東西看待，而她與許多人正在做的，是發現「人其實是圓的」，具有豐富立體的可能性，而非可以被簡化評判的平面存在。",
+  quotes:[
+   {en:"he saw — it didn't fit what he saw... up until this time... we have behaved as though people were two-dimensional, really flat, something to be moved around, controlled, owned — and what we have now found is that people are round... Columbus did not invent the round world, and people like me did not invent round people, we just found out that they're round.",
+    zh:"他看見了，而他所看見的，與大家都知道的事對不上……長久以來……我們對待人的方式，彷彿人是扁平的、可以被任意搬動、控制、擁有的東西，而我們現在發現的是，人其實是圓的……哥倫布並沒有發明圓形的地球，而像我這樣的人，也沒有發明圓形的人，我們只是發現了，人本來就是圓的。"}
+  ],
+  techniques:["典範轉移隱喻","人性圓形觀"],
+  reflect:"「人是圓的，不是扁平的」這句話，如果套用在你目前最想標籤化的某個人身上，你會需要放下哪個扁平的判斷？"},
+
+ {id:"c39",time:"延續前段",title:"學員回饋輪：電腦與說明書的寓言",en_title:"Debrief — The Manual for Being Human",
+  context:"段落尾聲，Satir 邀請學員分享這一整天對他們的意義。有人說自己終於能跳脫制式的紀錄式治療姿態；有人分享自己在婚姻中曾經歷過捧上神壇與緊抓不放兩種極端。一位學員則用自己笨拙操作新電腦、聯想到一則「文盲店主收到電腦卻誤以為是算盤」的寓言故事作結，她說，多年來 Satir 是少數真正握有「使用說明書」的人，而這場工作坊，正是把說明書的一部分傳遞給了在場所有人。",
+  quotes:[
+   {en:"there must have been a time in history when people were at the same crossroads we are, where our awareness of what needed to happen was stronger than our will to take the action... I think you, Virginia, had the manual — at least you have more of the manual than anybody that I know.",
+    zh:"歷史上一定曾經有過這樣的時刻，人們站在跟我們現在一樣的十字路口，對該發生什麼的覺察，比採取行動的意願來得更強烈……我覺得，Virginia，你手上握有那份說明書，至少，妳擁有的說明書，比我認識的任何人都還要多。"}
+  ],
+  techniques:["典範轉移隱喻","真人示範反思"],
+  reflect:"如果請你此刻分享「今天／這幾場示範對我的意義」，你會怎麼回答？試著寫下一句像學員們那樣真誠的回饋。"},
+
+ {id:"c40",time:"延續前段",title:"收尾冥想：扎根、創造、連結三重能量",en_title:"Closing Meditation — Three Energies",
+  context:"Satir 以一段簡短的引導冥想為這一整段作結——邀請學員閉眼、呼吸，感受來自大地的扎根能量、來自天空的創造與直覺能量，以及透過雙手與他人連結的能量，三股力量匯聚成此刻的自己，並鼓勵大家帶著這份完整感，走向接下來的旅程。",
+  quotes:[
+   {en:"let your attention go to your feet and let them take in the energy from the center of the earth... bringing you the energy of groundedness... and let yourself come in touch with the energy from the heavens... bringing with it the energy of creativeness... your connectedness with other people through your arms and hands... creating for you, at a moment in time, all three of the possibilities — being realistic, creative, and connected.",
+    zh:"把注意力帶到你的雙腳，讓它們接收來自地心的能量……帶給你扎根的力量……然後讓自己接觸到來自天空的能量……帶來創造的力量……透過雙手與他人連結的能量……在此刻，為你創造出三種可能性的匯聚，踏實、創造，以及連結。"}
+  ],
+  techniques:["身體化冥想","收尾與過渡"],
+  reflect:"在扎根（踏實）、創造（直覺）、連結（與人接觸）這三股能量裡，你目前最欠缺、最想補足的是哪一股？"}
+];
+
+/* ───────── 狀態 ───────── */
+const KEY="satir_pairs_seg1_v1";
+let S=JSON.parse(localStorage.getItem(KEY)||"{}");
+S.reflect=S.reflect||{}; S.visited=S.visited||{}; S.mode=S.mode||"both";
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+
+/* ───────── 影片段落（Segment I/II/III）對照 ───────── */
+const SEGMENTS={
+ 1:{label:"Segment I",url:"https://www.youtube.com/watch?v=BGDYlDPOBHY"},
+ 2:{label:"Segment II",url:"https://www.youtube.com/watch?v=1MEF2G1Kedg"},
+ 3:{label:"Segment III",url:"https://www.youtube.com/watch?v=ezSriTVG5E8"}
+};
+function segOf(id){
+  const n=parseInt(id.replace("c",""),10);
+  if(n<=12)return 1;
+  if(n<=26)return 2;
+  return 3;
+}
+function segBadge(id){
+  const s=segOf(id);
+  return `<span class="seg-badge seg-${s}">${SEGMENTS[s].label}</span>`;
+}
+function segsForTag(tag){
+  const segs=new Set();
+  CHAPTERS.forEach(c=>{
+    const techs=c.techniques||(c.cases||[]).flatMap(k=>k.techniques);
+    if(techs.includes(tag))segs.add(segOf(c.id));
+  });
+  return [...segs].sort();
+}
+function themeChipHtml(tag){
+  const segs=segsForTag(tag);
+  const stops=segs.map((s,i)=>{
+    const a=(i/segs.length*100).toFixed(2), b=((i+1)/segs.length*100).toFixed(2);
+    return `var(--seg${s}-soft) ${a}%, var(--seg${s}-soft) ${b}%`;
+  }).join(", ");
+  const bg=segs.length>1?`linear-gradient(90deg, ${stops})`:`var(--seg${segs[0]}-soft)`;
+  const count=segs.length>1?` <span class="chip-count">(${segs.length})</span>`:"";
+  return `<span class="chip" style="background:${bg};color:var(--ink)" onclick="goTagMap('${tag.replace(/'/g,"\\'")}')">${tag}${count}</span>`;
+}
+
+/* ───────── 導覽 ───────── */
+const NAVLIST=[{id:"ov",label:"總覽"},...CHAPTERS.map(c=>({id:c.id,label:c.title,time:c.time})),{id:"tagmap",label:"技巧地圖"}];
+const nav=document.getElementById("nav");
+NAVLIST.forEach((n,i)=>{
+  const b=document.createElement("button");
+  b.innerHTML=n.label+(n.time?`<span class="tm">${n.time.split("–")[0]}</span>`:"");
+  b.onclick=()=>goTo(n.id);
+  if(i===0)b.classList.add("on");
+  b.dataset.id=n.id;
+  if(n.id.startsWith("c"))b.classList.add("seg-"+segOf(n.id));
+  nav.appendChild(b);
+});
+
+function goTo(id){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.id===id));
+  if(id==="ov"){showSection("ov");renderOverview();}
+  else if(id==="tagmap"){showSection("tagmap");renderTagMap();}
+  else{showSection("chapters");renderChapter(id);S.visited[id]=true;save();renderProgress();}
+}
+function showSection(which){
+  document.getElementById("sec-ov").classList.toggle("show",which==="ov");
+  document.getElementById("sec-chapters").classList.toggle("show",which==="chapters");
+  document.getElementById("sec-tagmap").classList.toggle("show",which==="tagmap");
+}
+
+/* ───────── 語言切換 ───────── */
+document.querySelectorAll("#langtoggle button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll("#langtoggle button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    document.body.className="mode-"+b.dataset.m;
+    if(b.dataset.m==="both")document.body.className="";
+    S.mode=b.dataset.m;save();
+  };
+});
+document.body.className=S.mode==="both"?"":"mode-"+S.mode;
+document.querySelectorAll("#langtoggle button").forEach(b=>b.classList.toggle("on",b.dataset.m===S.mode));
+
+/* ───────── 總覽 render ───────── */
+function renderOverview(){
+  const allTech=[...new Set(CHAPTERS.flatMap(c=>c.techniques||(c.cases||[]).flatMap(k=>k.techniques)))];
+  document.getElementById("sec-ov").innerHTML=`
+   <div class="ov-grid">
+     <div class="card">
+       <h3>這份研習工具在做什麼</h3>
+       <div class="muted">把 PAIRS Training Segment I（Lori Gordon 引言＋ Satir 現場連結示範，場景 1–12）、Segment II（行為歷程理論講解＋權力配對雕塑示範，場景 13–26）與 Segment III（威脅獎賞vs種子模式、改變倫理、治療姿態演化，場景 27–40）整理成教學場景，每個場景保留英文原話＋中文對照，並標出可帶回實務工作的技巧概念。原始逐字稿較長，這裡是精選整理，不是逐句翻譯。</div>
+     </div>
+     <div class="card">
+       <h3>本段核心主題</h3>
+       <div class="chip-row">${allTech.map(themeChipHtml).join("")}</div>
+       <div class="muted" style="margin-top:8px">底色對應主題出現的影片段落（見下方圖例）；出現在多段影片的主題，底色會分色顯示，並在後面標註段數，例如 (2)。</div>
+     </div>
+     <div class="card">
+       <h3>場景來自哪一段影片</h3>
+       <div class="muted">每個場景左上角都有底色標籤標明來源，分頁列的每個場景按鈕也套了同一組底色，方便掃視現在讀到哪一段。</div>
+       <div class="legend-row">${[1,2,3].map(s=>`<a href="${SEGMENTS[s].url}" target="_blank"><span class="seg-badge seg-${s}">${SEGMENTS[s].label}</span></a>`).join("")}</div>
+     </div>
+     <div class="card">
+       <h3>研習進度</h3>
+       <div class="progress-bar"><i id="ov-bar"></i></div>
+       <div class="muted" id="ov-stat"></div>
+     </div>
+     <div class="card">
+       <h3>怎麼使用</h3>
+       <div class="muted">上方分頁依場景時間順序排列；右上角可切換「中英對照／只看中文／只看英文」；每個場景底部有反思欄，寫下的內容會自動存在瀏覽器裡；點技巧標籤旁的「技巧地圖」分頁可依主題跨場景瀏覽。</div>
+     </div>
+   </div>`;
+  renderProgress();
+}
+function renderProgress(){
+  const done=Object.keys(S.visited).length;
+  const pct=Math.round(done/CHAPTERS.length*100);
+  document.getElementById("progress-mini").textContent=`已讀 ${done}/${CHAPTERS.length} 個場景`;
+  const bar=document.getElementById("ov-bar");
+  if(bar){bar.style.width=pct+"%";document.getElementById("ov-stat").textContent=`${done} / ${CHAPTERS.length} 個場景已瀏覽（${pct}%）`;}
+}
+
+/* ───────── 章節 render ───────── */
+function qpairHtml(q){
+  return `<div class="qpair">
+    <div class="qblock en"><span class="lbl">ENGLISH</span>${q.en}</div>
+    <div class="qblock zh"><span class="lbl">中文對照</span>${q.zh}</div>
+  </div>`;
+}
+function renderChapter(id){
+  const c=CHAPTERS.find(x=>x.id===id);
+  const el=document.getElementById("sec-chapters");
+  let body=`${segBadge(c.id)}<div class="time-badge">${c.time}</div>
+    <h2 style="margin-bottom:4px">${c.title}</h2>
+    <div class="muted" style="margin-bottom:14px">${c.en_title}</div>
+    <div class="ctx">${c.context}</div>`;
+  if(c.cases){
+    body+=c.cases.map(k=>`
+      <div class="qcase">
+        <div class="case-name">${k.name}</div>
+        ${k.quotes.map(qpairHtml).join("")}
+        <div class="tags">${k.techniques.map(t=>`<span class="tag" onclick="goTagMap('${t.replace(/'/g,"\\'")}')">${t}</span>`).join("")}</div>
+      </div>`).join("");
+  }else{
+    body+=`<div class="card">${c.quotes.map(qpairHtml).join("")}
+      <div class="tags">${c.techniques.map(t=>`<span class="tag" onclick="goTagMap('${t.replace(/'/g,"\\'")}')">${t}</span>`).join("")}</div>
+    </div>`;
+  }
+  body+=`<div class="reflect">
+    <label>💭 反思練習</label>
+    <div class="muted" style="margin-bottom:8px">${c.reflect}</div>
+    <textarea id="rf-${c.id}" placeholder="寫下你的想法……">${S.reflect[c.id]||""}</textarea>
+    <div class="save-hint">自動存在瀏覽器（localStorage），不會上傳。</div>
+  </div>`;
+  el.innerHTML=body;
+  document.getElementById("rf-"+c.id).addEventListener("input",e=>{S.reflect[c.id]=e.target.value;save();});
+}
+
+/* ───────── 技巧地圖 render ───────── */
+function collectTagHits(tag){
+  const hits=[];
+  CHAPTERS.forEach(c=>{
+    if(c.cases){
+      c.cases.forEach(k=>{if(k.techniques.includes(tag))hits.push({chap:c,case:k});});
+    }else if(c.techniques.includes(tag)){
+      hits.push({chap:c,case:null});
+    }
+  });
+  return hits;
+}
+let activeTag=null;
+function goTagMap(tag){
+  goTo("tagmap");
+  activeTag=tag;
+  renderTagMap();
+}
+window.goTagMap=goTagMap;
+function renderTagMap(){
+  const allTech=[...new Set(CHAPTERS.flatMap(c=>c.techniques||(c.cases||[]).flatMap(k=>k.techniques)))].sort((a,b)=>a.localeCompare(b,"zh-Hant"));
+  const el=document.getElementById("sec-tagmap");
+  let html=`<div class="card"><h3>依技巧瀏覽</h3><div class="muted" style="margin-bottom:10px">點一個技巧標籤，看看它出現在哪些場景中。</div>
+    <div class="tagmap-cloud">${allTech.map(t=>`<span class="tag ${t===activeTag?"active":""}" onclick="goTagMap('${t.replace(/'/g,"\\'")}')">${t}</span>`).join("")}</div>
+  </div>`;
+  if(activeTag){
+    const hits=collectTagHits(activeTag);
+    html+=hits.map(h=>{
+      const q=h.case?h.case.quotes[0]:h.chap.quotes[0];
+      return `<div class="hit">
+        <div class="hit-chap">${segBadge(h.chap.id)}出自 <b>${h.chap.title}</b>${h.case?`　·　${h.case.name}`:""}　(${h.chap.time})</div>
+        ${qpairHtml(q)}
+        <button class="tag" style="margin-top:4px" onclick="goTo('${h.chap.id}')">前往完整場景 →</button>
+      </div>`;
+    }).join("");
+  }
+  el.innerHTML=html;
+}
+
+/* ───────── 初始化 ───────── */
+goTo("ov");
+</script>
+</body>
+</html>
