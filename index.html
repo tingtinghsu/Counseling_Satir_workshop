@@ -10,7 +10,8 @@
   --teal:#2f6f62; --teal-soft:#e3efec; --slate:#46586b; --slate-soft:#e8edf2;
   --amber:#c97b4a; --amber-soft:#f8e9de; --ok:#4a7c59; --ok-soft:#e6f0e5;
   --seg1:#5c7a52; --seg1-soft:#e6ede2; --seg2:#8a5f80; --seg2-soft:#f0e5ee;
-  --seg3:#b8863f; --seg3-soft:#f6ecd9;
+  --seg3:#b8863f; --seg3-soft:#f6ecd9; --seg4:#4a7a8c; --seg4-soft:#e2eef1;
+  --seg5:#9c5b4a; --seg5-soft:#f5e6e0;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;padding-bottom:70px;}
@@ -51,10 +52,14 @@ section.show{display:block;animation:fade .25s ease;}
 .seg-badge.seg-1{background:var(--seg1-soft);color:var(--seg1);}
 .seg-badge.seg-2{background:var(--seg2-soft);color:var(--seg2);}
 .seg-badge.seg-3{background:var(--seg3-soft);color:var(--seg3);}
+.seg-badge.seg-4{background:var(--seg4-soft);color:var(--seg4);}
+.seg-badge.seg-5{background:var(--seg5-soft);color:var(--seg5);}
 nav button.seg-1{background:var(--seg1-soft);}
 nav button.seg-2{background:var(--seg2-soft);}
 nav button.seg-3{background:var(--seg3-soft);}
-nav button.seg-1.on,nav button.seg-2.on,nav button.seg-3.on{background:transparent;}
+nav button.seg-4{background:var(--seg4-soft);}
+nav button.seg-5{background:var(--seg5-soft);}
+nav button.seg-1.on,nav button.seg-2.on,nav button.seg-3.on,nav button.seg-4.on,nav button.seg-5.on{background:transparent;}
 .legend-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
 .legend-row a{text-decoration:none;}
 
@@ -90,7 +95,8 @@ body.mode-en .qblock.zh{display:none;}
 .progress-bar{height:8px;background:#efeae2;border-radius:99px;overflow:hidden;margin:8px 0;}
 .progress-bar i{display:block;height:100%;background:var(--teal);border-radius:99px;transition:width .3s;}
 
-footer{text-align:center;color:#b3a897;font-size:.75rem;margin-top:50px;letter-spacing:.08em;}
+footer{text-align:center;color:#b3a897;font-size:.75rem;margin-top:50px;letter-spacing:.08em;padding:0 20px;line-height:1.8;}
+.copyright-card{background:var(--slate-soft);border-radius:12px;padding:14px 16px;font-size:.78rem;color:var(--slate);line-height:1.8;}
 </style>
 </head>
 <body>
@@ -98,8 +104,8 @@ footer{text-align:center;color:#b3a897;font-size:.75rem;margin-top:50px;letter-s
 <header>
   <div class="head-inner">
     <h1>SATIR × PAIRS Workshop研習</h1>
-    <div class="sub">Virginia Satir PAIRS Training — Segment I＋II＋III ・ Lori Gordon 引言 ＋ Satir 現場示範與理論講解<br>
-      來源影片：<a href="https://www.youtube.com/watch?v=BGDYlDPOBHY" target="_blank">Segment I</a>　<a href="https://www.youtube.com/watch?v=1MEF2G1Kedg" target="_blank">Segment II</a>　<a href="https://www.youtube.com/watch?v=ezSriTVG5E8" target="_blank">Segment III</a>　筆記：satir/PAIRS Training-1.md ・ -2.md ・ -3.md</div>
+    <div class="sub">Virginia Satir PAIRS Training — Segment I～V ・ Lori Gordon 引言 ＋ Satir 現場示範與理論講解<br>
+      來源影片：<a href="https://www.youtube.com/watch?v=BGDYlDPOBHY" target="_blank">Segment I</a>　<a href="https://www.youtube.com/watch?v=1MEF2G1Kedg" target="_blank">Segment II</a>　<a href="https://www.youtube.com/watch?v=ezSriTVG5E8" target="_blank">Segment III</a>　<a href="https://www.youtube.com/watch?v=eDGGnKxLews" target="_blank">Segment IV</a>　<a href="https://www.youtube.com/watch?v=VEFDj5KN9U0" target="_blank">Segment V</a>　筆記：satir/PAIRS Training-1.md ～ -5.md</div>
     <div class="headtools">
       <div class="lg" id="langtoggle">
         <button data-m="both" class="on">中英對照</button>
@@ -118,7 +124,7 @@ footer{text-align:center;color:#b3a897;font-size:.75rem;margin-top:50px;letter-s
 <section id="sec-tagmap"></section>
 </main>
 
-<footer>Ting ・ 家族治療研習筆記 ・ Satir Segment I</footer>
+<footer>影片與逐字稿內容版權屬 PAIRS Foundation 所有，本頁僅為個人學習用途之中文化整理，非官方翻譯，不作商業用途，如有侵權疑慮請通知移除。<br>Ting ・ 家族治療研習筆記 ・ Satir PAIRS Training</footer>
 
 <script>
 /* ───────── 資料 ───────── */
@@ -549,7 +555,260 @@ const CHAPTERS=[
     zh:"把注意力帶到你的雙腳，讓它們接收來自地心的能量……帶給你扎根的力量……然後讓自己接觸到來自天空的能量……帶來創造的力量……透過雙手與他人連結的能量……在此刻，為你創造出三種可能性的匯聚，踏實、創造，以及連結。"}
   ],
   techniques:["身體化冥想","收尾與過渡"],
-  reflect:"在扎根（踏實）、創造（直覺）、連結（與人接觸）這三股能量裡，你目前最欠缺、最想補足的是哪一股？"}
+  reflect:"在扎根（踏實）、創造（直覺）、連結（與人接觸）這三股能量裡，你目前最欠缺、最想補足的是哪一股？"},
+
+ {id:"c41",time:"Seg.IV 00:00–05:00",title:"晨間冥想：進入你的珍寶屋",en_title:"Morning Meditation — The Treasure House",
+  context:"第四段一開場，Satir 帶領學員做一段晨間引導冥想，邀請大家閉眼、覺察呼吸，一路深入內在那座「珍寶屋」，練習分辨此刻仍然合用的內在資源，以及曾經合用、現在可以帶著感謝放下的部分。",
+  quotes:[
+   {en:"let yourself go deep inside to that place where you keep the treasure that is called by your name, your treasure house... notice your resources, your ability to choose... to sort out of all of that which you have, that which fits you well at this time and that which once fit you well but you would no longer have any use for it, and let it go... in gratitude and thanks you will let it go.",
+    zh:"讓自己深深進入內在，那個以你的名字命名、收藏著珍寶的地方，你的珍寶屋……去留意你所擁有的資源，你選擇的能力……去分辨在你所擁有的一切裡，哪些此刻仍然適合你，哪些曾經適合你，但現在已經不再需要了，然後讓它離開……帶著感恩與謝意，讓它離開。"},
+   {en:"give yourself permission... to taste everything that comes your way but to swallow only that which fits you... perhaps you can become aware how in the past you asked yourself to swallow things which did not fit you at all... because you didn't want to disappoint anyone, you acted as though something that did not fit, fit you, and you swallowed it.",
+    zh:"給自己一個允許……去品嚐一路上遇到的所有東西，但只吞下真正適合你的部分……也許你會發現，過去你曾要求自己吞下一些根本不適合你的東西……只因為你不想讓任何人失望，於是你表現得好像那個不合適的東西是合適的，然後把它吞了下去。"}
+  ],
+  techniques:["身體化冥想","自我資源覺察","感恩式放下"],
+  reflect:"此刻你想帶著感謝，「放下」你內在的哪一個部分？寫下它曾經為你做過什麼，再寫下你現在願意讓它離開的原因。"},
+
+ {id:"c42",time:"延續前段",title:"平等不等於沒有領導：Peter 的提問",en_title:"Leadership vs. Equality — Peter's Question",
+  context:"學員 Peter 提問：如果堅持「人人平等」，父母要如何在不放棄應有責任的前提下對待孩子？Satir 立刻區分「平等」與「領導」是兩件完全不同的事，她也點出許多父母其實不知道自己握有孩子生死攸關的權力，才會演變成不健康的依賴關係。",
+  quotes:[
+   {en:"I feel absolutely on an equal basis with all of you... that has nothing to do with how we deal with leadership... my definition of leadership, by the way, is that it is the ability to create a context in which all participants are empowered.",
+    zh:"我對在座每一位，都感覺是完全平等的關係……但這跟我們如何處理『領導』完全是兩回事……順帶一提，我對『領導』的定義是，一種能創造出讓所有參與者都被賦能的情境的能力。"},
+   {en:"we are born into a life-death situation and the people around us do have the power of our life and death, first because we cannot take care of ourselves... when parents don't know that... what they do is they just continue a dependency relationship.",
+    zh:"我們一出生就處在攸關生死的處境裡，身邊的人確實握有我們生死的權力，首先是因為我們無法照顧自己……當父母不知道這一點時……他們所做的，就只是持續維持一段依賴關係。"}
+  ],
+  techniques:["平等與領導的區分","去權威化","賦能式領導"],
+  reflect:"在你目前的工作或家庭角色裡，有沒有把『平等對待』跟『不能設立界線、不能發揮領導功能』混為一談的時候？"},
+
+ {id:"c43",time:"延續前段",title:"麻醉中的耳朵：代名詞與捲髮的故事",en_title:"Anesthesia, Pronouns, and Healing",
+  context:"Satir 分享兩則案例，說明即使意識層面「聽不見」，身體其實一直在接收與記錄意義：一位護理師誤用代名詞，讓一個孩子的扁桃腺手術後遲遲無法癒合，澄清之後傷口立刻開始好轉；另一位女性因父親一句玩笑「她長得像猴子」，種下對毛髮的恐懼症與被父親拒絕的信念，直到成年後打電話給父親求證，症狀才消失。",
+  quotes:[
+   {en:"the nurse asked, doctor, will she live? He said no, he was thinking of a different woman he'd operated on earlier that day... I asked him, who are you talking about, Elaine or somebody else? Oh, he said, I'm talking about Mrs. so-and-so. Well, what about Elaine? Oh, she's just fine. And healing started immediately.",
+    zh:"護理師問醫生：她會活下來嗎？他回答不會，他當時心裡想的其實是那天稍早開刀的另一位女病人……我問他，你說的是誰，是 Elaine 還是別人？喔，他說，我說的是某某太太。那 Elaine 呢？喔，她很好。傷口的癒合，就從那一刻立刻開始了。"},
+   {en:"when she came out with all her curly hair he said, look, she looks like a monkey, and this was his joke... all that she had taken out of this was something that was negative... I said, is he still living, why don't you call him up? She called him up... they were able to talk to her about that, and the phobia disappeared.",
+    zh:"她一出生，滿頭捲髮，父親說，你看，她長得像隻猴子，這是他開的玩笑……而她從這句話裡接收到的，全部都是負面的訊息……我問她，你父親還在世嗎？打電話問問他吧。她真的打了電話……他們談開了這件事，恐懼症就這樣消失了。"}
+  ],
+  techniques:["語言的代間傳遞","身體化學習","早年經驗覺察"],
+  reflect:"有沒有一句你早年聽到、當時可能沒有意識到的話，卻一直悄悄影響你到現在？如果現在能回頭查證，你會想問誰、問什麼？"},
+
+ {id:"c44",time:"延續前段",title:"「我教你怎麼說謊」：教養裡的矛盾示範",en_title:"Modeling Lying — a Parenting Paradox",
+  context:"Satir 用一個日常小場景說明父母如何在無意間示範了與自己要求相反的行為：母親在電話裡撒謊推掉午餐邀約，孩子問起卻被喝止「不關你的事」；十分鐘後，母親要孩子去做某件事，孩子如法炮製說自己生病了，母親卻反過來責罵孩子「我要教你怎麼說謊嗎」。",
+  quotes:[
+   {en:"the mother is saying, no I can't come for lunch, I'm sick — so the mother hangs up and the child says, mom are you sick? No I'm not sick. Well why did you— never mind, that's none of your business. Ten minutes later... the child says, I can't, I'm sick. And the mother says, I'll teach you to lie to me.",
+    zh:"母親在電話裡說，不行，我不能去吃午餐，我生病了。掛上電話後，孩子問，媽媽你生病了嗎？不，我沒有生病。那你為什麼……算了，不關你的事。十分鐘後……孩子說，我不能去，我生病了。母親卻說，我要教你怎麼對我說謊嗎？"},
+   {en:"that mother, I absolutely would swear, has no idea that what she has done has modeled for that child the direct opposite of what she's asking the child to do... and that mother's not perverse, because for her, adults trying to do something for themselves in that case... this was a totally different arena that had nothing to do with teaching her child.",
+    zh:"我可以肯定地說，這位母親完全沒有意識到，她剛剛做的事，正好示範了跟她要求孩子的完全相反的行為……而這位母親並不是故意的，因為對她來說，成人有時是在為自己處理某些事……那對她而言是完全不同的另一件事，跟教養孩子毫無關係。"}
+  ],
+  techniques:["身教示範","家庭系統知覺差異","治療者角色"],
+  reflect:"回想一次你自己也在無意間，對孩子（或下屬、個案）示範了跟你要求相反的行為。當時你自己有沒有意識到？"},
+
+ {id:"c45",time:"延續前段",title:"一加一等於三合一：家庭的新數學",en_title:"One Plus One Equals Three Equals One — The Triad Math",
+  context:"為了說明伴侶與孩子之間的關係，Satir 現場示範她自創的「新數學」：一個人加一個人等於一對，一對加上一個新生命就是三，而這個三要能真正長成完整的一個人，取決於能否同時從父母雙方自由汲取，而這一切的起點，都在於這對伴侶彼此互動的品質。",
+  quotes:[
+   {en:"I'm gonna give you a mathematical formula that I made up, it's new math — one plus one equal to two, plus one equal three, and three equal one... when those two get together and they have a third, we have now three... for them to grow up to be whole, they have to be able to take from both the man and the woman.",
+    zh:"我要給你們一個我自己發明的數學公式，這是新數學，一加一等於二，加一等於三，而三等於一……當這兩個人在一起，有了第三個生命，我們就有了三……而這個新生命要長成完整的一個人，必須能夠同時從男方和女方身上汲取。"},
+   {en:"whether or not a child has the chance to become really whole depends upon, at the beginning, the interaction between the man and the woman.",
+    zh:"一個孩子有沒有機會真正長成完整的自己，一開始，取決於這對男女之間互動的品質。"}
+  ],
+  techniques:["家庭系統知覺差異","伴侶關係為家庭基石","隱喻式教學"],
+  reflect:"如果把你原生家庭的『三合一』畫出來，你覺得自己在成長過程中，能不能同時自由地從父母雙方身上汲取？哪一邊比較困難？"},
+
+ {id:"c46",time:"延續前段",title:"誰站著、誰跪著：孩子被迫選邊站",en_title:"Sculpting Hierarchy — A Child Forced to Choose Sides",
+  context:"Satir 現場擺出一組階層雕塑：父親高高站立、母親跪在他腳邊。她接著讓孩子上場，孩子必須決定要靠向哪一邊，藉此示範階層式的婚姻姿態如何逼迫孩子早早選邊站，也預先埋下孩子日後對性別角色的僵化信念。",
+  quotes:[
+   {en:"here is this child, to get up — now she's got to go someplace there, because the very nature of what this is means she has to take a side, she can't have both, she has to take a side.",
+    zh:"現在這個孩子，要起身了，她得往某個地方去，因為這個結構的本質，就意味著她必須選邊站，她不能同時擁有兩邊，她必須選一邊。"},
+   {en:"one of the things she learned: she's a woman, she'll learn that women are potentially weak and should be taken care of... at the same time she sees herself as superior to her mother, so that her relationships with other women oftentimes would be distant.",
+    zh:"她從中學到的一件事是：身為女性，女人是潛在脆弱、需要被照顧的……但同時她又覺得自己比母親優越，於是她日後與其他女性的關係，往往會顯得疏離。"}
+  ],
+  techniques:["階層權力雕塑","子女選邊站的代價","代間傳遞覺察"],
+  reflect:"在你的原生家庭裡，你曾被迫『選邊站』嗎？那個選擇，如今是否仍然悄悄影響著你與同性別、異性別他人的關係？"},
+
+ {id:"c47",time:"延續前段",title:"站上自己的雙腳，孩子才靠得近",en_title:"Standing on Own Feet — Letting the Child Approach",
+  context:"接續上一段雕塑，Satir 引導這對伴侶站上自己的雙腳、彼此擁抱，孩子這時想加入。她示範父母如何用清楚而溫柔的語言，同時劃出夫妻的界線，也給孩子明確的歸屬感，讓孩子即使暫時被劃在圈外，也能感覺被愛、被安頓。",
+  quotes:[
+   {en:"while your husband is struggling to keep you to himself at this moment and your son is wanting to come in... look at your son and say, love, this is not for you right now, this is for your father and me, my lover boy and me.",
+    zh:"當你先生此刻正努力想把你留在身邊，而你兒子也想加進來的時候……看著你兒子，告訴他，寶貝，這一刻不是屬於你的，這是屬於爸爸和我的，我心愛的男孩，和我。"},
+   {en:"this is the most comforting thing a kid can get, as both parents are in agreement and being clear about it — he may not be all that happy but he's comforted by it.",
+    zh:"這是一個孩子能得到的最大安慰：當父母雙方一致，並且清楚地表達出來，他也許不會太開心，但他會感覺被安頓。"}
+  ],
+  techniques:["夫妻界線清晰化","站穩自己的腳","孩子的安全感"],
+  reflect:"下次孩子（或第三者）想介入你與伴侶之間的時刻，你可以怎麼用一句清楚又溫柔的話，同時劃界線、又讓對方感覺被安頓？"},
+
+ {id:"c48",time:"延續前段",title:"形式不等於關係：非傳統家庭的提問",en_title:"Form ≠ Interaction — Non-Traditional Families",
+  context:"面對關於單親家庭、女同志伴侶、重組家庭教養孩子的提問，Satir 強調「形式」（誰、什麼樣的組合在照顧孩子）與「互動品質」是完全不同的兩件事，任何形式的家庭都可能養出健康或受傷的孩子，關鍵永遠在互動，不在標籤。",
+  quotes:[
+   {en:"form has nothing to do with the interaction between people, nothing has nothing to do with sex — sexual partners can blame, placate, be super reasonable, irrelevant, or congruent.",
+    zh:"家庭的『形式』跟人與人之間的互動一點關係都沒有，跟性別組合也毫無關係，伴侶關係中的兩人都可能指責、討好、超理智、打岔，或是一致性地表達。"},
+   {en:"I don't love you because you're my mother, I don't love you because you are a lesbian or a male, I love you because of what happens between us.",
+    zh:"我愛你，不是因為你是我的母親，也不是因為你是女同志或男性，我愛你，是因為發生在我們之間的東西。"}
+  ],
+  techniques:["去標籤化","互動品質優先於家庭形式","一致性溝通姿態"],
+  reflect:"你有沒有曾經因為一個家庭的『形式』（單親、同志伴侶、重組家庭）而預設了它一定會有某種問題？重新聚焦到互動品質，你的判斷會不會不一樣？"},
+
+ {id:"c49",time:"延續前段",title:"三角關係也可以是滋養的",en_title:"Nurturing the Triad",
+  context:"學員提問 Satir 的模型跟 Murray Bowen 的三角關係理論有何不同，她說明自己畢生投入的方向，不是像多數理論那樣設法「降低三角關係的傷害」，而是主動開發讓三角關係本身變得滋養的方法，因為若做不到這一點，家庭就沒有希望。",
+  quotes:[
+   {en:"every one of us on the face of the earth knows about something called the triad, the triangle, and in most lore it is looked upon as a negative thing.",
+    zh:"這世上每個人都聽過所謂的三角關係，而在大多數傳統的說法裡，它都被看成是一件負面的事。"},
+   {en:"I have pioneered ways to make the triad nurturing, because if we can't make a triad nurturing, there is no hope for the family.",
+    zh:"我開創了讓三角關係變得滋養的方法，因為如果我們沒辦法讓三角關係變得滋養，這個家庭就沒有希望了。"}
+  ],
+  techniques:["三角關係滋養化","流派對話","理論整合的提問"],
+  reflect:"在你目前接觸的某個三角關係（婆媳、親子、同事）裡，如果目標不是『降低傷害』而是『讓它變得滋養』，你會想先做哪一件小事？"},
+
+ {id:"c50",time:"延續前段",title:"孩子的求生策略：橋樑、逃離、代罪與拯救",en_title:"A Child's Survival Strategies in Conflict",
+  context:"這是本段最長的現場示範，Satir 邀請學員扮演正在爭執的父母，逐一示範孩子可能發展出的因應位置：夾在中間當橋樑、逃到家庭以外（若環境允許）、加入母親陣營成為保護者、把父母都扛起來變成「照顧者小孩」，甚至用生病、用藥等方式把父母重新拉回同一陣線。",
+  quotes:[
+   {en:"he can form relationships with grandparents or with schools or something of that sort... however, if there is too much guilt around and too much anger around and not enough freedom for him to do that, you'll have to stay here and do something.",
+    zh:"他可以去跟祖父母、跟學校建立關係，或是別的什麼……但如果周圍有太多愧疚、太多憤怒，又沒有足夠的自由讓他離開，他就只能留在這裡，做點什麼。"},
+   {en:"in all three times the teenager was the one who brought the kids in by getting into drugs... it's the kid that brings them in and actually brings them into help.",
+    zh:"三次個案中，都是那個青少年用碰毒品的方式，把整個家庭帶進治療室……真正把家人帶來求助的，是那個孩子。"}
+  ],
+  techniques:["孩子的因應策略","三角關係中的角色","家族治療系統觀"],
+  reflect:"在你熟悉的一個家庭系統裡，孩子（或最脆弱的那個人）用的是哪一種策略：當橋樑、逃離、代罪，還是拯救？這個策略讓他付出了什麼代價？"},
+
+ {id:"c51",time:"延續前段",title:"暴力不是無中生有：雙重束縛的溫床",en_title:"Violence Isn't Random — the Soil of Double Binds",
+  context:"針對暴力成因的提問，Satir 強調真正的暴力其實遠比大家以為的少，多數看似暴力的行為背後，其實是「怎麼做都不對」的雙重束縛，她現場示範一位母親要求孩子擁抱、孩子照做卻反被指責的矛盾訊息，說明這種持續被否定的處境，才是真正滋生暴力的土壤。",
+  quotes:[
+   {en:"when you get down to the wire, nothing you do will please me, nothing that I asked you to do... there is no way she can win.",
+    zh:"到了走投無路的地步，你做什麼都無法讓我滿意，即使是我要求你做的事……她根本沒有贏的可能。"},
+   {en:"real violence, we don't have that much, it only looks like we have that much — the effect of violence is much stronger than the number of people who engage in it.",
+    zh:"真正的暴力，其實沒有我們以為的那麼多，它只是看起來很多，暴力造成的『效應』，遠比實際捲入的人數要強烈得多。"}
+  ],
+  techniques:["雙重束縛","去污名化暴力歸因","家族治療系統觀"],
+  reflect:"你有沒有見過『怎麼做都不對』的雙重束縛情境（可能包括你自己身在其中）？當時被困住的那個人，後來用了什麼方式回應？"},
+
+ {id:"c52",time:"延續前段",title:"祖孫之間的隱形聯盟",en_title:"Grandparents & the Hidden Alliance",
+  context:"第四段尾聲，Satir 以祖母與母親的關係為例，說明祖孫之間看似親近的聯盟，其實根源於祖母與自己女兒（或兒子）之間尚未解決的競爭或依附，她提醒理解任何家庭系統，最終都要回到那對最初提供受精卵、精子與教養功能的成人關係上。",
+  quotes:[
+   {en:"we have to remember that her and her mother grew up together, and whatever is going to be there... the key to how this all works is the relationship between those two.",
+    zh:"我們必須記得，她和她的母親是一起長大的，無論這裡藏著什麼……這一切能不能運作，關鍵都在這兩人之間的關係。"},
+   {en:"whoever it is who was involved in giving me the egg and sperm, and then providing the nurture, support and direction — that's where all of this stems.",
+    zh:"無論是誰，只要曾經參與給予卵子與精子，並且提供養育、支持與方向，這一切的源頭，都要回到他們身上。"}
+  ],
+  techniques:["跨代系統觀","隱形聯盟","家族治療系統觀"],
+  reflect:"在你的家族裡，有沒有一段『祖孫聯盟』？如果往回追溯，那背後可能藏著祖父母與自己孩子之間什麼樣未解決的關係？"},
+
+ {id:"c53",time:"Seg.V 00:00–05:00",title:"從無問題到有喜悅：治療的下一步",en_title:"From Problem-Free to Joyful",
+  context:"第五段開場，Satir 回顧過去幾十年治療領域多半聚焦在「消除問題」，但她提醒，沒有問題不等於擁有喜悅，就像沒有戰爭不等於真正的和平，她邀請在場者一起思考，如何運用我們已經擁有的資源，讓生命從「無問題」走向真正的豐盛。",
+  quotes:[
+   {en:"the absence of problem is not the same as joy in life... the absence of war is not the same as peace.",
+    zh:"沒有問題，不等於擁有生命中的喜悅……就像沒有戰爭，不等於真正的和平。"},
+   {en:"what can we do to enhance life, to use ourselves to enhance life, rather than just to make it problem free?",
+    zh:"我們能做些什麼，來運用自己、豐富生命，而不只是讓生命變得『沒有問題』而已？"}
+  ],
+  techniques:["病理轉向喜悅","資源取向"],
+  reflect:"如果把你目前的自我成長或治療目標從『沒有問題』改成『更有喜悅』，你會想先為自己（或個案）做哪一件具體的小事？"},
+
+ {id:"c54",time:"延續前段",title:"普世的父母與孩子：每個大人都曾是嬰兒",en_title:"We Were All Once Babies",
+  context:"Satir 排出一列列「普世父母」與「普世子女」的身體雕塑，提醒在場所有人，每一位此刻已經活化為「父母」角色的成年人，也曾經是一個一無所知、全然仰賴他人的嬰兒。她指出每個成人展現出來的，只是他們自己學來的東西，而那些學習主要決定了他們日後如何處理三角關係。",
+  quotes:[
+   {en:"babies, when we meet them, as our parents we meet everything that they have learned — physically how to treat their bodies, how to treat themselves, how to treat others.",
+    zh:"當我們初次見到嬰兒時，我們身為他們的父母，其實迎接的是他們日後將學到的一切，如何對待自己的身體，如何對待自己，如何對待他人。"},
+   {en:"every adult reflects only their experiences of what they learned, only that — and the basic experience they represent are the solutions to the triad, and that governs everything about relationships to other people.",
+    zh:"每一個成年人，展現出來的都只是他們自己學到的經驗，僅此而已，而他們所代表的基本經驗，正是他們對『三角關係』所找到的因應方式，而這，主宰了他們與他人關係的一切。"}
+  ],
+  techniques:["世代傳承覺察","身體雕塑教學法"],
+  reflect:"如果眼前這個讓你頭痛的成年人（伴侶、父母、上司），此刻也是一個曾經無助的嬰兒，你對他的理解會有什麼不同？"},
+
+ {id:"c55",time:"延續前段",title:"差異是禮物還是武器：伴侶必然的摩擦",en_title:"Difference as Gift or Weapon",
+  context:"Satir 說明每一對伴侶都注定會遭遇摩擦，原因不在於誰不好，而在於「差異」本身，性別、成長經歷、生活步調都不相同，關鍵不在於有沒有差異，而在於我們如何看待差異，是把它當成威脅，還是當成豐富彼此的資源。",
+  quotes:[
+   {en:"every couple will have difficulties, why do they have difficulties? Because they're unique and they're different — the first uniqueness is in gender, maleness and femaleness are not synonymous.",
+    zh:"每一對伴侶都會遇到困難，為什麼會有困難？因為他們是獨特的、彼此不同的，第一層獨特性來自性別，男性與女性並不是同一回事。"},
+   {en:"whether or not difference-ness are for us or against us — most of us have used difference to work against us, not for us.",
+    zh:"差異究竟是站在我們這邊，還是與我們為敵，端看我們怎麼看待它，而我們大多數人，都習慣讓差異與我們為敵，而不是為我們所用。"}
+  ],
+  techniques:["差異的資源化","獨特性肯定"],
+  reflect:"回想你與伴侶（或家人）最常起摩擦的一個差異，如果把它重新看成『資源』而不是『威脅』，那個差異可以怎麼被使用？"},
+
+ {id:"c56",time:"延續前段",title:"延伸我，還是補全我：愛裡的兩種依附",en_title:"Extend Me or Supplement Me",
+  context:"Satir 提出一個關鍵提問：你與伴侶之間，是「延伸」關係還是「補全」關係？如果對方離開就等於自己只剩下半個人，那是延伸；如果對方的存在只是為完整的自己錦上添花，那才是補全，前者容易在關係破裂時徹底崩潰，後者則保有完整的自我。",
+  quotes:[
+   {en:"do you extend me, or do you supplement me, and that has to do with the idea of loving — if you extend me then when you go I am only half a person.",
+    zh:"你是在延伸我，還是在補全我？這關係到我們對『愛』的理解，如果你是在延伸我，那麼當你離開時，我就只剩下半個人。"},
+   {en:"if you supplement me then you've added something to me, and I am still whole when you leave.",
+    zh:"但如果你是在補全我，那你為我增添了一些東西，即使你離開了，我依然是完整的。"}
+  ],
+  techniques:["延伸型依附 vs 補全型依附","自我完整性"],
+  reflect:"在你目前最重要的一段關係裡，你比較接近『延伸』還是『補全』？如果對方明天離開，你會剩下半個人，還是依然完整？"},
+
+ {id:"c57",time:"延續前段",title:"有希望，就有可能：給希望裝上智慧",en_title:"Hope Needs Intelligence, Not Evidence",
+  context:"Satir 指出每一對走進承諾關係的伴侶心裡都懷抱著希望，即使外在證據並不支持，這份希望幾乎沒有經驗依據，也稱不上理性，但正是這份希望，讓人願意一次次冒險，她也批評許多治療取向長期只聚焦在絕望與匱乏，卻忽略了替「希望」裝上智慧與方法的重要性。",
+  quotes:[
+   {en:"the hope is that I will be able to transcend the negatives of my past, and that hope is so important, that is what helps us to take the risks that we need to take.",
+    zh:"那份希望是，我終將能夠超越自己過去的種種負面經驗，而這份希望如此重要，正是它，幫助我們願意去冒必要的風險。"},
+   {en:"so many of the therapies have not bought into the hope, they bought into the despair and they bought into the deprivation... how can we give to the hope intelligence, how can we give it a chance?",
+    zh:"太多治療取向，買的不是『希望』，買的是絕望，買的是匱乏……我們要怎麼給希望裝上智慧？怎麼給它一個機會？"}
+  ],
+  techniques:["希望取向治療","病理轉向喜悅"],
+  reflect:"你自己（或你的個案）心裡那份『沒什麼證據支持，卻依然抱著』的希望是什麼？你可以怎麼幫它裝上一點方法與智慧？"},
+
+ {id:"c58",time:"延續前段",title:"派對的賓客：珍娜的部分派對",en_title:"The Parts Party Begins — Jana's Guests",
+  context:"Satir 介紹她獨創的「部分派對」（Parts Party）技巧：請學員珍娜（Jana）說出六位讓她「渾身起雞皮疙瘩或內心發熱」的人物（可以是名人、親友），再為每個人選出一個代表性形容詞，藉此揭露她自己內在不曾被承認的多重面向。",
+  quotes:[
+   {en:"what's behind Jana are all the experiences that she had with all of you, and what she now has in her consciousness, and what's also automatic right now that you have.",
+    zh:"藏在珍娜身後的，是她跟在座每一個人相處過的所有經驗，是她此刻意識中擁有的一切，也包括那些你們現在已經自動運作、不假思索的部分。"},
+   {en:"I'm going to ask Jana to give me the names of six people that when she thinks about them she gets all juicy inside, or she gets feelings of horror... these are gonna be the guests to the party.",
+    zh:"我要請珍娜給我六個名字，是她一想到就會渾身發熱，或是感覺毛骨悚然的人……這些人，就是這場派對的賓客。"}
+  ],
+  techniques:["部分派對","內在多重自我"],
+  reflect:"如果現在請你說出六個讓你『渾身發熱』或『毛骨悚然』的人物，你會想到誰？先別分析，直接寫下名字就好。"},
+
+ {id:"c59",time:"延續前段",title:"沒有一個形容詞是純粹的：正負翻轉練習",en_title:"No Adjective Is Purely Positive or Negative",
+  context:"選完六個代表人物後，Satir 逐一詢問每個形容詞是正面還是負面，緊接著立刻反問：「你能想到這個特質何時反而是負面（或正面）的嗎？」藉此鬆動學員原本對自己特質的僵化評價，她也提醒，只要我們拒絕承認某個部分，我們就不是真正自由的。",
+  quotes:[
+   {en:"do you consider affectionate positive or negative? Positive. Do you consider cold-blooded positive or negative? Negative... now I'd like you to think of times when affection can be negative.",
+    zh:"你覺得『親密溫情』是正面還是負面？正面。你覺得『冷血』是正面還是負面？負面……現在，我想請你想想，什麼時候『親密溫情』反而會是負面的。"},
+   {en:"none of us are really free unless we can accept everything about us — we have to sit on any part of us, we're not free.",
+    zh:"除非我們能接納自己身上的一切，否則沒有人是真正自由的，只要我們還在壓抑自己的任何一個部分，我們就還不自由。"}
+  ],
+  techniques:["正負翻轉練習","去二元對立","接納陰影面"],
+  reflect:"挑一個你認為自己『絕對正面』或『絕對負面』的特質，試著想一次它反過來發揮作用的情境。"},
+
+ {id:"c60",time:"延續前段",title:"讓角色活起來：用身體演出每個部分",en_title:"Embodying the Parts — a Gesture for Each Guest",
+  context:"Satir 邀請其他學員分別扮演這些「賓客」角色，並為每個特質設計具體的身體動作：溫情的人溫柔觸碰、微笑；支持型的人在衝突時介入調停；自戀型的人只顧展示自己，把抽象的內在特質變成可以在房間裡走動、被看見的具體存在。",
+  quotes:[
+   {en:"we're into at this moment... to give each of these parts a real life in the body of each one of us.",
+    zh:"我們此刻要做的……是讓每一個內在部分，都在我們自己的身體裡，活出真實的樣子。"},
+   {en:"you will touch and smile in a very loving way... he will walk around stomping like a warmonger... he'll grab his first, always taking more, and pushing somebody else away.",
+    zh:"你會用非常有愛的方式觸碰、微笑……他會像個好戰的人一樣，大步踩著走來走去……他總是搶第一個，永遠拿得比別人多，還會把別人推開。"}
+  ],
+  techniques:["身體化角色扮演","內在部分具象化"],
+  reflect:"如果要用一個具體的身體動作，演出你自己最不想承認的那個部分，那會是什麼動作？"},
+
+ {id:"c61",time:"延續前段",title:"旋轉木馬：同一個人，千百張臉",en_title:"The Carousel — A Thousand Faces of One Person",
+  context:"所有扮演「部分」的學員圍成一圈、面朝外，像旋轉木馬般緩緩轉動再停下，此刻正對著某個方向的那張臉，就代表了那一刻珍娜或喬呈現給世界的樣子。Satir 藉此說明，如果我們只看見一個人某一刻展現的某個面向，就把整個人簡化成那個面向，其實是失去了看見完整人性的機會。",
+  quotes:[
+   {en:"these are the many faces of Joe... let's suppose the people over here had a chance to see only this, that's Joe, the people over there saw what was here, and that's Joe.",
+    zh:"這些，都是喬的千百張臉……假設這邊的人只看到這一面，那就是喬；那邊的人只看到另一面，那也是喬。"},
+   {en:"if we say to ourselves we should be one thing, which is what we try to do with people, we reduce them, then of course we only make shells out of things and we do not get to the essence of a human being.",
+    zh:"如果我們告訴自己，一個人應該只是某一種樣子，這正是我們常對別人做的事，把人簡化成一個標籤，那我們最終得到的，只是一個空殼，永遠碰不到一個人真正的本質。"}
+  ],
+  techniques:["內在部分的流動性","去簡化的人性觀"],
+  reflect:"你身邊有沒有一個人，你曾經只看過他『其中一張臉』，就把他整個人定型了？如果你有機會多看見他其他的面向，那會是什麼？"},
+
+ {id:"c62",time:"延續前段",title:"當兩個部分相遇：伴侶衝突的真正樣貌",en_title:"When Two Parts Meet — What Couple Conflict Really Looks Like",
+  context:"Satir 讓喬與珍娜的「部分」們兩兩配對站出來，例如喬的『無能』遇上珍娜的『聰慧』，讓兩人具體看見，伴侶間許多說不清的摩擦，其實是雙方某個內在部分彼此碰撞的結果，而不是對方整個人本質有問題。",
+  quotes:[
+   {en:"there is nothing that says that at a moment in time that we can predict what face will be there when they roll there.",
+    zh:"沒有什麼能告訴我們，在任何一個當下，究竟會是哪一張臉轉到正面來相遇。"},
+   {en:"how did that feel to you? I feel frightened and anxious and really unsettled.",
+    zh:"那讓你感覺如何？我覺得害怕、焦慮，而且非常不安定。"}
+  ],
+  techniques:["部分配對演練","伴侶衝突的重新框架"],
+  reflect:"回想你與伴侶（或重要他人）最近一次說不清原因的摩擦，如果用『是彼此的哪兩個部分相遇』來理解，那會是哪兩個部分？"},
+
+ {id:"c63",time:"延續前段",title:"壓下去的部分還在捏你：承認是自由的第一步",en_title:"What We Sit On Still Pinches Us",
+  context:"本段最震撼的收尾示範，Satir 讓學員代表「被接受的部分」站著，「不被接受的部分」（如自私、驕傲、暴力）跪趴在地上被坐住、隱藏，接著讓「壓在下面」的部分伸手偷偷捏「坐在上面」的人。她藉此具象化說明：只要我們拒絕承認某個內在部分的存在，它不會消失，只會持續發出訊號，唯有承認，而非驅逐，才是走向真正整合與自由的第一步。",
+  quotes:[
+   {en:"the minute that we are able to acknowledge the existence of all our parts, all that pinching stops... we cannot kill any parts of ourselves, we can only hide them and make believe that they're not there, but the cost is very great.",
+    zh:"當我們能夠承認自己所有部分的存在，那些捏人的動作就會停止……我們無法真正殺死自己的任何一個部分，只能把它藏起來，假裝它不存在，但這麼做的代價非常高。"},
+   {en:"full ownership means, yes, I do have a part of being vicious... when we really know it's there, then the first step toward our freedom is to let that see the light of day.",
+    zh:"完全的擁有，意味著，是的，我確實有殘忍的一面……當我們真正知道它就在那裡，走向自由的第一步，就是讓它重見天日。"}
+  ],
+  techniques:["部分派對","陰影整合","承認即自由"],
+  reflect:"你內在有沒有一個一直被『坐住』、不被承認的部分？如果願意讓它『重見天日』，你猜想承認它之後，會發生什麼？"}
 ];
 
 /* ───────── 狀態 ───────── */
@@ -562,13 +821,17 @@ const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
 const SEGMENTS={
  1:{label:"Segment I",url:"https://www.youtube.com/watch?v=BGDYlDPOBHY"},
  2:{label:"Segment II",url:"https://www.youtube.com/watch?v=1MEF2G1Kedg"},
- 3:{label:"Segment III",url:"https://www.youtube.com/watch?v=ezSriTVG5E8"}
+ 3:{label:"Segment III",url:"https://www.youtube.com/watch?v=ezSriTVG5E8"},
+ 4:{label:"Segment IV",url:"https://www.youtube.com/watch?v=eDGGnKxLews"},
+ 5:{label:"Segment V",url:"https://www.youtube.com/watch?v=VEFDj5KN9U0"}
 };
 function segOf(id){
   const n=parseInt(id.replace("c",""),10);
   if(n<=12)return 1;
   if(n<=26)return 2;
-  return 3;
+  if(n<=40)return 3;
+  if(n<=52)return 4;
+  return 5;
 }
 function segBadge(id){
   const s=segOf(id);
@@ -638,7 +901,7 @@ function renderOverview(){
    <div class="ov-grid">
      <div class="card">
        <h3>這份研習工具在做什麼</h3>
-       <div class="muted">把 PAIRS Training Segment I（Lori Gordon 引言＋ Satir 現場連結示範，場景 1–12）、Segment II（行為歷程理論講解＋權力配對雕塑示範，場景 13–26）與 Segment III（威脅獎賞vs種子模式、改變倫理、治療姿態演化，場景 27–40）整理成教學場景，每個場景保留英文原話＋中文對照，並標出可帶回實務工作的技巧概念。原始逐字稿較長，這裡是精選整理，不是逐句翻譯。</div>
+       <div class="muted">把 PAIRS Training Segment I（Lori Gordon 引言＋ Satir 現場連結示範，場景 1–12）、Segment II（行為歷程理論講解＋權力配對雕塑示範，場景 13–26）、Segment III（威脅獎賞vs種子模式、改變倫理、治療姿態演化，場景 27–40）、Segment IV（晨間冥想、親職與階層雕塑、非傳統家庭、家庭三角關係，場景 41–52）與 Segment V（希望的智慧、部分派對 Parts Party、內在多重自我的整合，場景 53–63）整理成教學場景，每個場景保留英文原話＋中文對照，並標出可帶回實務工作的技巧概念。原始逐字稿較長，這裡是精選整理，不是逐句翻譯。</div>
      </div>
      <div class="card">
        <h3>本段核心主題</h3>
@@ -648,7 +911,7 @@ function renderOverview(){
      <div class="card">
        <h3>場景來自哪一段影片</h3>
        <div class="muted">每個場景左上角都有底色標籤標明來源，分頁列的每個場景按鈕也套了同一組底色，方便掃視現在讀到哪一段。</div>
-       <div class="legend-row">${[1,2,3].map(s=>`<a href="${SEGMENTS[s].url}" target="_blank"><span class="seg-badge seg-${s}">${SEGMENTS[s].label}</span></a>`).join("")}</div>
+       <div class="legend-row">${[1,2,3,4,5].map(s=>`<a href="${SEGMENTS[s].url}" target="_blank"><span class="seg-badge seg-${s}">${SEGMENTS[s].label}</span></a>`).join("")}</div>
      </div>
      <div class="card">
        <h3>研習進度</h3>
@@ -658,6 +921,10 @@ function renderOverview(){
      <div class="card">
        <h3>怎麼使用</h3>
        <div class="muted">上方分頁依場景時間順序排列；右上角可切換「中英對照／只看中文／只看英文」；每個場景底部有反思欄，寫下的內容會自動存在瀏覽器裡；點技巧標籤旁的「技巧地圖」分頁可依主題跨場景瀏覽。</div>
+     </div>
+     <div class="card" style="grid-column:1/-1">
+       <h3>版權聲明</h3>
+       <div class="copyright-card">本頁引用之影片與逐字稿內容，版權皆屬 <b>PAIRS Foundation</b> 所有（Virginia Satir 主持之 PAIRS Training 工作坊示範）。這裡僅摘錄教學重點、附上中文翻譯與個人反思練習，作為學習者研習之用，非官方授權翻譯，不作任何商業用途；如有侵權疑慮，請通知移除。</div>
      </div>
    </div>`;
   renderProgress();
