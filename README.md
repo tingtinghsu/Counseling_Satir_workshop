@@ -12,6 +12,8 @@
   - `PAIRS Training-1.md`
   - `PAIRS Training-2.md`
   - `PAIRS Training-3.md`
+  - `PAIRS Training-4.md`
+  - `PAIRS Training-5.md`
 
 ## 線上瀏覽
 
@@ -22,3 +24,7 @@ https://tingtinghsu.github.io/Counseling_Satir_workshop/
 ## 本機開啟
 
 直接用瀏覽器開啟 `index.html` 即可，無需啟動伺服器。
+
+## 版權聲明
+
+本專案引用之影片與逐字稿內容，版權皆屬 **PAIRS Foundation** 所有（Virginia Satir 主持之 PAIRS Training 工作坊示範）。`satir/` 內的逐字稿筆記與 `index.html` 中摘錄的教學重點、中文翻譯與反思練習，僅為個人學習用途之中文化整理，非官方授權翻譯，不作任何商業用途；如有侵權疑慮，請通知移除。
